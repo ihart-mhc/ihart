@@ -1,1 +1,0 @@
-﻿package  {	import com.jtuttle.box2d.b2Actor;	import Box2D.Dynamics.b2Body;	import flash.display.MovieClip;	public class Chicken extends b2Actor{		public function Chicken(body:b2Body) {			// constructor code			super(body,new ChickenFA());			//_costume.width=_body.get		}	}	}
