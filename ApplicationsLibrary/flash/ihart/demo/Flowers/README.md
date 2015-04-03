@@ -16,6 +16,7 @@ This is an interactive scene created for iHart. This application generates rando
 
 If the Flowers.swf file is not working, you might need to re-export the application.
 
-####Author
-Pavlina Lejskova '15
+#### Versions  
+**Flowers v1.0.0**  
+*author: Pavlina Lejskova '15*  
 
