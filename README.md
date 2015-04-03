@@ -29,7 +29,11 @@ All the curently available iHart applications can be found in the __Applications
         * __ihart__
             * __demo__ - the currently available flash iHart applications
                 * __HelloWorld__
-                * __PaintingBlobs__
+                * __Butterflies__
+                * __Fireworks__
                 * __Flowers__
+                * __PaintingBlobs__
+                * __Piano__
+                * __SnowScene__
             * __event__ - the iHart library (do not touch unless you know what you're doing)
     * __java__
