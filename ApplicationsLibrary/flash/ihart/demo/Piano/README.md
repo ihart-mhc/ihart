@@ -6,7 +6,7 @@ This is an interactive game created for iHart. This application plays notes as t
 * __Piano.swf__ - the exported application
 * __Piano.as__ - the application source code
 * __Piano.fla__ - the application gui
-* __SoundClip__ - the sounds for the keys of the piano
+* __/SoundClip__ - the sounds for the keys of the piano
 * __README.md__
 
 #### How to run the application  
