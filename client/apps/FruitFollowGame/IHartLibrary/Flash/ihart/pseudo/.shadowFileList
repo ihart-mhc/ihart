@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>/Users/cleoschneider/Desktop/ProjectionStuff/ProcessingToFlash/FlockingExample/iHartExamples/flash/ihart/pseudo/AbstractPseudoServer.as</string>
+	<string>/Users/cleoschneider/Desktop/ProjectionStuff/ProcessingToFlash/FlockingExample/iHartExamples/flash/ihart/pseudo/AutoCentroidPS.as</string>
+	<string>/Users/cleoschneider/Desktop/ProjectionStuff/ProcessingToFlash/FlockingExample/iHartExamples/flash/ihart/pseudo/CentroidDragPS.as</string>
+	<string>/Users/cleoschneider/Desktop/ProjectionStuff/ProcessingToFlash/FlockingExample/iHartExamples/flash/ihart/pseudo/HolePS.as</string>
+	<string>/Users/cleoschneider/Desktop/ProjectionStuff/ProcessingToFlash/FlockingExample/iHartExamples/flash/ihart/pseudo/PseudoServerMain.as</string>
+</array>
+</plist>

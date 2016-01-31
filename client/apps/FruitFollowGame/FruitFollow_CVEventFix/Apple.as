@@ -1,0 +1,1 @@
+﻿package{	import flash.display.MovieClip;	import flash.events.*;			public class Apple extends Fruit{		public function Apple(){						fruitNumber = 0;			 sound = new appleSound();			 x= 100;			 y= 100;			 			stop();			//addEventListener(MouseEvent.MOUSE_OVER, goStop);			//addEventListener(MouseEvent.MOUSE_OUT, getOut);	 			super();		 		}	}}

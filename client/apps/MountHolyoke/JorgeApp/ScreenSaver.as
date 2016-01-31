@@ -1,0 +1,1 @@
+﻿package  {	import flash.display.MovieClip;		public class ScreenSaver extends MovieClip {		public function ScreenSaver() {			// constructor code		}	}	}

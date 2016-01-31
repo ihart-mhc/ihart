@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<question text="When was Mount Holyoke founded?" 
+			option1="1846" 
+			option2="1837" 
+			option3="1879" 
+			option4="1829"
+			correct="1837" 
+			fact="Mount Holyoke was actually the first of the Seven Sisters"/>
+	<question text="What do Mount Holyoke students call themselves?" 
+			option1="Milk and Cookies" 
+			option2="Holyokes" 
+			option3="MoHos" 
+			option4="College Students?"
+			correct="MoHos" 
+			fact="Apart from being an everyday tradition, M & C's (Milk and Cookied) is also the name of an acapella group on campus."/>
+	<question text="Which dorm building burned down right before the Christmas of 1922?" 
+			option1="Mead Hall" 
+			option2="1837" 
+			option3="Dickinson Hall" 
+			option4="Rockefeller Hall"
+			correct="Rockefeller Hall" 
+			fact="The cause of the fire was a suspected gas explosion, but this was never confirmed."/>
+	<question text="Which famous poet attended Mount Holyoke" 
+			option1="Emily Dickinson" 
+			option2="Joanne Creighton" 
+			option3="Charlotte Bronte" 
+			option4="Amy Lowell"
+			correct="Emily Dickinson" 
+			fact="She attended Mount Holyoke only for 10 months, and then left."/>
+	<question text="Which room in Wilder is supposedly haunted?" 
+			option1="410" 
+			option2="403" 
+			option3="303" 
+			option4="309"
+			correct="403" 
+			fact="According to legend, a former student who became pregnant out of wedlock committed suicide in the room. After her death, all of the students who lived in her room fell down the stairs and broke a limb. To protect the students from harm, the college boarded up the room "/>
+</root>

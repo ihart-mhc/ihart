@@ -1,0 +1,1 @@
+﻿package  {	import com.jtuttle.box2d.b2Actor;	import Box2D.Dynamics.b2Body;	import flash.display.MovieClip;	public class Egg extends b2Actor{		public function Egg(body:b2Body) {			// constructor code			super(body,new EggDrop());			//_costume.width=_body.get		}	}	}

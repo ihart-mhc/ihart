@@ -1,0 +1,1 @@
+﻿package{	import flash.display.MovieClip;		import flash.events.*;		public class Green extends Fruit{			public function Green(){			 			fruitNumber = 3;			sound = new greenSound();			x=1000;			y=600;			 			stop();			//addEventListener(MouseEvent.MOUSE_OVER, goStop);			//addEventListener(MouseEvent.MOUSE_OUT, getOut);	 			super();		 		}	}}
