@@ -15,11 +15,7 @@ You can find all the necessary files for installing the iHart application on Win
         * __windows__
             * __cvServer__ - application files (do not touch unless you know what you're doing)
             * __cvServer.exe__ - the iHart application
-    * __src__
-        * __cvServer.py__ - the source code for the iHart application
-        * __haarcascade_frontalface_alt.xml__ - face recognition
-        * __mainHelp.png__ - settings window help
-        * __startupHelp.png__ - startup window help
+    * __src__ - the source code for the iHart application
 
 #### iHart Applications  
 All the curently available iHart applications can be found in the __client__ folder.  
