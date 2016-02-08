@@ -6,7 +6,7 @@ The iHart system consists of two parts - a server and a client. The server uses 
 
 ***
 
-#### Installing iHart  
+## Installing iHart  
 You can find all the necessary files for installing the iHart application on Windows or iOS in the __server__ folder.  
 
 * __server__ - files needed for the installation of the iHart software
@@ -19,7 +19,7 @@ You can find all the necessary files for installing the iHart application on Win
             * __cvServer.exe__ - the iHart application
     * __src__ - the source code for the iHart application
 
-#### iHart Applications  
+## iHart Applications  
 All the curently available iHart applications can be found in the __client__ folder.  
 
 * __client__ - files needed for running iHart applications.
@@ -28,7 +28,7 @@ All the curently available iHart applications can be found in the __client__ fol
     * __tutorials__ - documentation of how to create and use iHart applications, plus a demo app
 
 
-### iHart Documentation
+## iHart Documentation
 Some PDF documentation can be found in the __doc__ folder. More can be found [on the iHart website](http://ihart-mhc.github.io/), under Application Development and Software Development.
 
 There is little documentation about installing from source; the source code is located in __server__ --> __src__ and requires Python 2.7+ and OpenCV 2 for Python.
