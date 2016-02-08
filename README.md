@@ -26,3 +26,9 @@ All the curently available iHart applications can be found in the __client__ fol
     * __apps__ - library of the currently available Flash and Java iHart applications
     * __library__ - the iHart event libraries for Flash and Java (do not touch unless you know what you're doing)
     * __tutorials__ - documentation of how to create and use iHart applications, plus a demo app
+
+
+### iHart Documentation
+Some PDF documentation can be found in the __doc__ folder. More can be found [on the iHart website](http://ihart-mhc.github.io/), under Application Development and Software Development.
+
+There is little documentation about installing from source; the source code is located in __server__ --> __src__ and requires Python 2.7+ and OpenCV 2 for Python.
