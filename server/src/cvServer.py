@@ -959,7 +959,7 @@ class Data:
 		cv2.resizeWindow(self.mWindow, self.iHartWidth, self.iHartHeight)
 
 		# Create a window for the settings trackbars and resize it.
-		cv2.namedWindow(self.gWindow)
+		cv2.namedWindow(self.gWindow, flags=cv2.WINDOW_NORMAL)
 		cv2.resizeWindow(self.gWindow, 550, 150)
 
 		# Create all the trackbars, put them all in gWindow, and set them all to use updateTrackbars
@@ -1022,8 +1022,8 @@ class Server:
         """
 
         # Creates the window and gives it a size (otherwise, its width and height is 0).
-        cv2.namedWindow(self.sWindow)
-        cv2.resizeWindow(self.sWindow, 100, 40)
+        cv2.namedWindow(self.sWindow, flags=cv2.WINDOW_NORMAL)
+        cv2.resizeWindow(self.sWindow, 200, 200)
 
         # Adds a trackbar for choosing the camera index, a trackbar for starting the program, and a trackbar
         # for displaying a help image. (With openCV's GUI, there are no buttons so trackbars with only
@@ -1305,6 +1305,7 @@ class Server:
             # Once any new clients have been accepted, send all of the clients the message string.
             self.server.checkIncomingConnections()
             self.server.sendInformation(message)
+
 
 if __name__ == "__main__":
 	# Starts the program.
