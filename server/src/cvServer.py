@@ -902,7 +902,7 @@ class Data:
 		# If the quit trackbar is on 1, exit the program.
 		if cv2.getTrackbarPos(self.quitTrackbar, self.gWindow) == 1:
 			cv2.destroyAllWindows()
-			del(self.videoCapture) # destroy the video capture separately
+			self.videoCapture.release() # destroy the video capture separately
 			sys.exit()
 
 		# facesEnabled, motionEnabled, and flipHorizontal should all be True if their

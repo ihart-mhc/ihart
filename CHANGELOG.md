@@ -3,7 +3,8 @@ All notable changes to the iHart server will be documented in this file.
 This project does its best to adhere to [Semantic Versioning](http://semver.org/).
 
 ## [Development]
-N/A
+### Changed
+- Use release() method instead of deleting self.videoCapture variable when quitting.
 
 ## [2.1] -- 2015-02-11
 ### Added
