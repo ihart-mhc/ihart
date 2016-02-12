@@ -3,11 +3,14 @@ All notable changes to the iHart server will be documented in this file.
 This project does its best to adhere to [Semantic Versioning](http://semver.org/).
 
 ## [Development]
+N/A
+
+## [2.2] -- 2016-02-11
 ### Added
 - Allow user to resize start and control windows.
 
 ### Changed
-- Use release() method instead of deleting self.videoCapture variable when quitting.
+- Faces and help images are enabled in the exported application.
 
 ## [2.1] -- 2015-02-11
 ### Added
