@@ -8,7 +8,7 @@ block_cipher = None
 
 
 a = Analysis(['cvServer.py'],
-             pathex=['C:\\Users\\Sarah\\Projects\\ihart\\server\\src'],
+             pathex=['.'],
              binaries=None,
              datas=[],
              hiddenimports=[],
@@ -35,3 +35,8 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           console=False )
+
+app = BUNDLE(exe,
+             name='cvServer.app',
+             icon=None,
+             bundle_identifier=None)
