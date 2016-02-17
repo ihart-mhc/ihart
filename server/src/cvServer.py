@@ -29,6 +29,7 @@ simply change the position of the trackbar.
 import socket   # the only module needed for all our socket interactions
 import sys      # so that can exit()
 import os       # get resource locations
+import argparse # to parse command-line arguments
 import cv2      # openCV
 import numpy    # needed for openCV
 import math     # for utility functions
@@ -1025,12 +1026,22 @@ class Server:
     server = None
 
 
-    def __init__(self):
+    def __init__(self, autostart=False, cameraindex=0):
         """
         Creates a new window so that the user can set the camera index to use, and waits
         until the user drags the start trackbar to 1, starting the rest of the program.
+        @param autostart: if false, displays the start / camera index chooser upon startup
+        @param cameraindex: initial value of the camera index
         @return: none
         """
+        
+        # If autostart is True, skip directly to creation of the main GUI.
+        if autostart:
+            self.startMainServer(0) # Default camera index
+            return
+            
+        # Set the initial camera index.
+        self.cameraIndex = cameraindex
 
         # Creates the window and gives it a size (otherwise, its width and height is 0).
         cv2.namedWindow(self.sWindow, flags=cv2.WINDOW_NORMAL)
@@ -1234,6 +1245,21 @@ class Server:
         @return: none
         """
         self.data.createGUI()
+        
+    def startMainServer(self, cameraIndex):
+        """
+        Start the main program (sensing motion and sending it to clients).
+        @param cameraIndex: which camera to connect to.
+        @return: none
+        """
+        self.cameraIndex = cameraIndex
+        self.data = Data(self.cameraIndex)
+        # Initialize the SocketHandler, which will create the server socket.
+        self.server = SocketHandler()
+        # Create the GUI to display video feed, motion, and settings.
+        self.createGUI()
+        # Start the continuous loop that will run the rest of the program.
+        self.run()
 
     def decideCameraTrackbars(self, x):
         """
@@ -1244,16 +1270,11 @@ class Server:
         """
         if cv2.getTrackbarPos(self.cameraChosenTrackbar, self.sWindow) == 1:
             # The start trackbar has been dragged to 1; store the camera index and start the program.
-            self.cameraIndex = cv2.getTrackbarPos(self.cameraTrackbar, self.sWindow)
-            self.data = Data(self.cameraIndex)
-            # Initialize the SocketHandler, which will create the server socket.
-            self.server = SocketHandler()
+            cameraIndex = cv2.getTrackbarPos(self.cameraTrackbar, self.sWindow)
             # Close the camera index window.
             cv2.destroyWindow(self.sWindow)
-            # Create the GUI to display video feed, motion, and settings.
-            self.createGUI()
-            # Start the continuous loop that will run the rest of the program.
-            self.run()
+            # Start the main program.
+            self.startMainServer(cameraIndex)
             
         if cv2.getTrackbarPos(self.startQuitTrackbar, self.sWindow) == 1:
             # the quit trackbar has been dragged to 1; quit the program.
@@ -1269,6 +1290,7 @@ class Server:
             self.helpOpen = True
             # Wait so that the window doesn't disappear.
             cv2.waitKey(100000)
+
         elif self.helpOpen:
             # Close the help window.
             cv2.destroyWindow(self.hWindow)
@@ -1319,5 +1341,11 @@ class Server:
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Sense motion and relay information to client applications')
+    # If the autostart flag is present, we do not display the camera index choice window.
+    parser.add_argument('--autostart', help='Whether to display the start window', action='store_true', default=False)
+    # We can also optionally take a camera index from the command line.
+    parser.add_argument('-i', '--cameraindex', help='Which camera input to connect to', type=int, default=0)
+    args = parser.parse_args()
     # Starts the program.
-    s = Server()
+    s = Server(autostart=args.autostart, cameraindex=args.cameraindex)

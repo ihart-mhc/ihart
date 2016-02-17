@@ -3,7 +3,8 @@ All notable changes to the iHart server will be documented in this file.
 This project does its best to adhere to [Semantic Versioning](http://semver.org/).
 
 ## [Development]
-N/A
+### Added
+- `--autostart` and `--cameraindex` command-line flags allow the server to be started immediately, bypassing the startup window.
 
 ## [2.2] -- 2016-02-11
 ### Added
