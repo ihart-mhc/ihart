@@ -5,6 +5,7 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 ## [Development]
 ### Added
 - `--autostart` and `--cameraindex` command-line flags allow the server to be started immediately, bypassing the startup window.
+- A default area of interest covering most of the screen is created when the server starts.
 
 ## [2.2] -- 2016-02-11
 ### Added
