@@ -3,6 +3,9 @@ All notable changes to the iHart server will be documented in this file.
 This project does its best to adhere to [Semantic Versioning](http://semver.org/).
 
 ## [Development]
+N/A
+
+## [2.3] -- 2015-02-24
 ### Added
 - `--autostart` and `--cameraindex` command-line flags allow the server to be started immediately, bypassing the startup window.
 - A default area of interest covering most of the screen is created when the server starts.
