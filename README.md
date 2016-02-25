@@ -1,5 +1,7 @@
 # [iHart](http://ihart-mhc.github.io/)
 
+iHart is a library that provides an easy way to write programs that react to motion captured by a web camera, along with a collection of applications.
+
 The iHart: Interactive Hallways for Attraction and Retention in Technology project provides inexperienced programmers with the unique opportunity to develop interactive scenes and games that can be displayed on floors and walls, creating a fun and refreshing diversion from the hustle of everyday life for anyone who walks by. The project strengths lie in its intuitive development environment and its easy and inexpensive installation into the hallway. The goal of the iHart project is to attract and inspire students to pursue careers in computer science and information technology.
 
 The iHart system consists of two parts - a server and a client. The server uses OpenCV to monitor the camera feed for motion. The client triggers CVEvents based on the information it receives from the server. The iHart applications create an instance of the client and listen to the CVEvents, which they can respond to as they would to a MouseEvent.
@@ -18,6 +20,7 @@ You can find all the necessary files for installing the iHart application on Win
             * __cvServer__ - application files (do not touch unless you know what you're doing)
             * __cvServer.exe__ - the iHart application
     * __src__ - the source code for the iHart application
+* __bin__ - scripts and utilities
 
 ## iHart Applications  
 All the curently available iHart applications can be found in the __client__ folder.  
