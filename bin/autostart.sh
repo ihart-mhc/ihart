@@ -6,6 +6,20 @@
 # Load configuration file.
 source "./autostart.config"
 
+# Directory where the server file is located. This is mac for OS X, windows for Windows.
+# Which server file to run. On Windows, make sure to include the .exe extension.
+
+if $OS_OSX
+then
+	SERVERDIR="../server/dist/mac/"
+	SERVERFILE="cvServer-2.3"
+else
+	SERVERDIR="../server/dist/windows/"
+	SERVERFILE="cvServer-2.3.exe"
+fi
+
+
+
 # Run the server in the background.
 SERVER="$SERVERDIR$SERVERFILE"
 ./$SERVER --autostart &
@@ -23,4 +37,15 @@ sleep 5
 
 # Run the application in the background.
 APP="$APPDIR$APPFILE"
-./$APP &
+
+if $OS_OSX
+then
+	open $APP &
+else
+	./$APP &
+fi
+
+if $OS_OSX
+then
+	/usr/bin/osascript -e 'tell application "Flash Player"' -e "activate" -e 'tell application "System Events"' -e 'keystroke "f" using {command down}' -e "end tell" -e "end tell"
+fi
