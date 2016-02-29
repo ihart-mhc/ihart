@@ -996,8 +996,9 @@ class Data:
         cv2.setMouseCallback(self.vWindow, self.mouseClicked, None)
 
         # Add an initial default area of interest that encompasses the entire screen.
-        # Although we set them to 240 by 180, they turn out to be 320 by 240.
-        self.addAreaOfInterest(3, 317, 3, 237)
+        # Although we set them to 240 by 180, they turn out to be 320 by 240 on Windows,
+	# but 240 by 180 on OS X.
+        self.addAreaOfInterest(3, 237, 3, 173)
 
         # The method set is used to set different properties of the VideoCapture instance.
         # 3 determines that the width should be set; 4, the height.
