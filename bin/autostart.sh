@@ -3,18 +3,21 @@
 # Run this file as ./autostart.sh on Unix, or sh ./autostart.sh on Windows.
 # If you want to change what this file does, change the variables in autostart.config.
 
+# Get where we are.
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 # Load configuration file.
-source "./autostart.config"
+source "$DIR/autostart.config"
 
 # Directory where the server file is located. This is mac for OS X, windows for Windows.
 # Which server file to run. On Windows, make sure to include the .exe extension.
 
 if $OS_OSX
 then
-	SERVERDIR="../server/dist/mac/"
+	SERVERDIR="$DIR/../server/dist/mac/"
 	SERVERFILE="cvServer-2.3"
 else
-	SERVERDIR="../server/dist/windows/"
+	SERVERDIR="$DIR/../server/dist/windows/"
 	SERVERFILE="cvServer-2.3.exe"
 fi
 
