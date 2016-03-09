@@ -39,7 +39,7 @@ sleep 5
 
 
 # Run the application in the background.
-APP="$APPDIR$APPFILE"
+APP="$DIR/$APPDIR$APPFILE"
 
 if $OS_OSX
 then
