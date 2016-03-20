@@ -6,7 +6,7 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 ### Fixed
 - The `--cameraindex` flag should be recognized when autostarting as well as during normal startup.
 
-## [2.3] -- 2015-02-24
+## [2.3] -- 2016-02-24
 ### Added
 - `--autostart` and `--cameraindex` command-line flags allow the server to be started immediately, bypassing the startup window.
 - A default area of interest covering most of the screen is created when the server starts.
