@@ -3,7 +3,8 @@ All notable changes to the iHart server will be documented in this file.
 This project does its best to adhere to [Semantic Versioning](http://semver.org/).
 
 ## [Development]
-N/A
+### Fixed
+- The `--cameraindex` flag should be recognized when autostarting as well as during normal startup.
 
 ## [2.3] -- 2015-02-24
 ### Added
