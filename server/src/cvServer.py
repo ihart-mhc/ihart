@@ -1040,13 +1040,13 @@ class Server:
         @return: none
         """
         
-        # If autostart is True, skip directly to creation of the main GUI.
-        if autostart:
-            self.startMainServer(0) # Default camera index
-            return
-            
         # Set the initial camera index.
         self.cameraIndex = cameraindex
+
+        # If autostart is True, skip directly to creation of the main GUI.
+        if autostart:
+            self.startMainServer(self.cameraIndex)
+            return
 
         # Creates the window and gives it a size (otherwise, its width and height is 0).
         cv2.namedWindow(self.sWindow, flags=cv2.WINDOW_NORMAL)
