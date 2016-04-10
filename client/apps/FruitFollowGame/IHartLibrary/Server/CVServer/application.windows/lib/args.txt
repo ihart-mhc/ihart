@@ -1,3 +1,0 @@
-
-CVServer
-CVServer.jar,core.jar,OpenCV.jar,net.jar,interfascia.jar
