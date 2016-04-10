@@ -25,7 +25,7 @@ fi
 
 # Run the server in the background.
 SERVER="$SERVERDIR$SERVERFILE"
-./$SERVER --autostart &
+$SERVER --autostart &
 
 # Exit if the server failed to run.
 case $? in
