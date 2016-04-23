@@ -17,5 +17,4 @@ This is an interactive scene created for iHart. This application creates firewor
 If the FireworksCV.swf file is not working, you might need to re-export the application, or try with the .app or .exe versions (on OS X or Windows respectively).
 
 #### Versions  
-** Fireworks v1.0.0**  
-*author: YOUR NAME*
+** Fireworks v1.0.0**
