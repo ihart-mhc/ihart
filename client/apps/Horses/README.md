@@ -19,4 +19,4 @@ If the Horses.swf file is not working, you might need to re-export the applicati
 
 #### Versions  
 **Horses v1.0.0**  
-*author: Sanaa Mansoor '18, Zineb El Mechrafi '18, Sumatra Dhimoyee '18
+* author: Sanaa Mansoor '18, Zineb El Mechrafi '18, Sumatra Dhimoyee '18
