@@ -11,11 +11,10 @@ This is an interactive game created for iHart. This application plays notes as t
 
 #### How to run the application  
 1. Make sure that the iHart program is running on your computer.
-2. Check that the camera is working and that it is pointed at a picture of a piano keyboard (this could either be a physical picture or one displayed on your monitor when you open the Piano.swf file).
-3. Specify an interest area that only includes the picture of the piano keyboard.
+2. Check that the camera is working.
 3. Make sure that your speakers are turned on.
 3. To run the application open the Piano.swf file.
-4. As you move your fingers across the picture of the keyboard, you should hear the appropriate notes being played.
+4. As you move in front of the camera, you should hear notes being played.
 
 If the Piano.swf file is not working, you might need to re-export the application.
 
