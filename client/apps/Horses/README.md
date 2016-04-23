@@ -18,5 +18,5 @@ This is an interactive scene created for iHart. This application plays sounds wh
 If the Horses.swf file is not working, you might need to re-export the application, or try with the .app or .exe versions (on OS X or Windows respectively).
 
 #### Versions  
-** Horses v1.0.0**  
-*author: Sanaa Mansoor '18, Zineb El Mechrafi '18, Sumatra Dhimoyee '18 *
+**Horses v1.0.0**  
+*author: Sanaa Mansoor '18, Zineb El Mechrafi '18, Sumatra Dhimoyee '18
