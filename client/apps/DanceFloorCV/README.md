@@ -17,5 +17,5 @@ This is an interactive scene created for iHart. This application replicates a da
 If the DanceFloorCV.swf file is not working, you might need to re-export the application.
 
 #### Versions
-* *DanceFloor v1.0.0*
+**DanceFloor v1.0.0**
 * author: Lisa Chen '17, Tien Dao '18, Raeesa Mehjabeen '18
