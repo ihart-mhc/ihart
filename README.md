@@ -28,7 +28,7 @@ All the curently available iHart applications can be found in the __client__ fol
 * __client__ - files needed for running iHart applications.
     * __apps__ - library of the currently available Flash and Java iHart applications
     * __library__ - the iHart event libraries for Flash and Java (do not touch unless you know what you're doing)
-    * __tutorials__ - documentation of how to create and use iHart applications, plus a demo app
+    * __sample__ - documentation of how to create and use iHart applications, plus a demo app
 
 
 ## iHart Documentation
