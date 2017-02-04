@@ -26,10 +26,10 @@ simply change the position of the trackbar.
 """
 
 # External module dependencies
-import sys      # so that we can exit()
 import argparse # to parse command-line arguments
 import cv2      # openCV
 import numpy    # needed for openCV
+import sys      # so that we can exit()
 
 # Project deprendencies
 from blob import Blob
@@ -380,5 +380,6 @@ if __name__ == "__main__":
     # We can also optionally take a camera index from the command line.
     parser.add_argument('-i', '--cameraindex', help='Which camera input to connect to', type=int, default=0)
     args = parser.parse_args()
+
     # Starts the program.
-    s = Server(autostart=args.autostart, cameraindex=args.cameraindex)
+    Server(autostart=args.autostart, cameraindex=args.cameraindex)
