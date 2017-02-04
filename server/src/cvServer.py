@@ -27,22 +27,14 @@ simply change the position of the trackbar.
 
 
 import socket   # the only module needed for all our socket interactions
-import sys      # so that can exit()
+import sys      # so that we can exit()
 import os       # get resource locations
 import argparse # to parse command-line arguments
 import cv2      # openCV
 import numpy    # needed for openCV
 import math     # for utility functions
 
-def resource_path(resource):
-    """
-    Utility method to get absolute path to a resource
-     (sometimes the current directory, sometimes the temp directory).
-    @param resource the path to the resource from the location of this script
-    @return absolute path to the resource
-    """
-    base_path = getattr(sys, "_MEIPASS", ".")
-    return "/".join([base_path, resource])
+from utility import *
 
 
 class SocketHandler():
@@ -410,7 +402,7 @@ class Data:
     shellList = []
 
     # Width to scale the Blob coordinates to before sending the coordinates to clients.
-    # (used to format data to the dimensions of a client program.) 
+    # (used to format data to the dimensions of a client program.)
     scalingWidth = 800
     scalingHeight = 500
     # Dimensions of the iHart video feed.
@@ -445,7 +437,7 @@ class Data:
     mergeDistance = 0.3
 
     # Determines whether should check for motion and/or faces, and whether the camera image
-    # should be flipped horizontally (used for mirroring purposes). 
+    # should be flipped horizontally (used for mirroring purposes).
     motionEnabled = True
     facesEnabled = False
     flipHorizontal = False
@@ -493,7 +485,7 @@ class Data:
         @return: none
         """
         self.videoCapture = cv2.VideoCapture(cameraIndex)
-    
+
     def addAreaOfInterest(self, leftX, rightX, topY, bottomY):
         """
         Creates a new AreaOfInterest with the given data and adds it to interestList.
@@ -902,7 +894,7 @@ class Data:
             if toRemove in self.interestList:
                 self.interestList.remove(toRemove)
         # Redraw self.video on vWindow.
-        cv2.imshow(self.vWindow, self.video)    
+        cv2.imshow(self.vWindow, self.video)
 
     def updateTrackbars(self, x):
         """
@@ -1039,7 +1031,7 @@ class Server:
         @param cameraindex: initial value of the camera index
         @return: none
         """
-        
+
         # Set the initial camera index.
         self.cameraIndex = cameraindex
 
@@ -1067,7 +1059,7 @@ class Server:
         # code because the rest (including the infinite loop which keeps everything updating) is
         # called once the user drags the trackbar to start.
         cv2.waitKey(1000000)
-    
+
     def updateGUI(self):
         """
         Updates the GUI.
@@ -1250,7 +1242,7 @@ class Server:
         @return: none
         """
         self.data.createGUI()
-        
+
     def startMainServer(self, cameraIndex):
         """
         Start the main program (sensing motion and sending it to clients).
@@ -1280,12 +1272,12 @@ class Server:
             cv2.destroyWindow(self.sWindow)
             # Start the main program.
             self.startMainServer(cameraIndex)
-            
+
         if cv2.getTrackbarPos(self.startQuitTrackbar, self.sWindow) == 1:
             # the quit trackbar has been dragged to 1; quit the program.
             cv2.destroyAllWindows()
             sys.exit()
-        
+
         if cv2.getTrackbarPos(self.helpTrackbar, self.sWindow) == 1 and not self.helpOpen:
             # Open the help window and display the help image on it.
             cv2.namedWindow(self.hWindow)
