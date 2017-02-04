@@ -50,6 +50,7 @@ class Server:
     cameraIndex = 0
     cameraTrackbar = "camera index"
     cameraChosenTrackbar = "start program"
+    faceClassifier = None
     helpTrackbar = "help?"
     startQuitTrackbar = "quit"
     helpOpen = False
@@ -245,17 +246,12 @@ class Server:
         @return: none
         """
 
-        # Load the face recognition file into opencv.
-        faceType = resource_path("haarcascade_frontalface_alt.xml")
-        faceClassifier = cv2.CascadeClassifier()
-        faceClassifier.load(faceType)
-
         # Convert the image to grayscale so that opencv can search for faces.
         grayImage = cv2.cvtColor(self.data.video, cv2.COLOR_BGR2GRAY)
 
         # Look for faces at all scales (otherwise, would look for a certain size face)
         # Edit the raw data into instances of Blob (and put them into data.faceList).
-        rawFaceList = faceClassifier.detectMultiScale(grayImage)
+        rawFaceList = self.faceClassifier.detectMultiScale(grayImage)
         self.editFaces(rawFaceList)
 
     def editFaces(self, rawFaceList):
@@ -291,6 +287,12 @@ class Server:
         self.server_socket = SocketHandler()
         # Create the GUI to display video feed, motion, and settings.
         self.createGUI()
+
+        # Load the face recognition file into opencv.
+        faceType = resource_path("haarcascade_frontalface_alt.xml")
+        self.faceClassifier = cv2.CascadeClassifier()
+        self.faceClassifier.load(faceType)
+
         # Start the continuous loop that will run the rest of the program.
         self.run()
 
