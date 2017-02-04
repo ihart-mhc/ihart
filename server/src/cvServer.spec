@@ -7,7 +7,7 @@ added_files = [ ('mainHelp.png', 'mainHelp.png', 'DATA'),
 block_cipher = None
 
 
-a = Analysis(['cvServer.py'],
+a = Analysis(['server.py'],
              pathex=['.'],
              binaries=None,
              datas=[],
