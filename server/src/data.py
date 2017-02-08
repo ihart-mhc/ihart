@@ -7,6 +7,7 @@ Responsible for:
 
 # External module dependencies
 import cv2      # openCV
+import json     # JSON library for message encoding
 import sys      # so that we can exit()
 
 # Project deprendencies
@@ -145,59 +146,55 @@ class Data:
         call (any changes made to coordinates only effect the output string: no Blob will have its
         fields changed).
 
-        The format of the string itself is as follows:
-        <area number>|<area information> <area number>|<area information>
-            This repeats until the string ends with "\n\0"
-                (if you are viewing in html, the string ends with "\ n \ 0" if you remove the spaces.)
-            If there are no areas of interest, an empty string is returned.
+        The format of the string itself is as follows (spaces added for readability):
+            [ <area information>, <area information>, ... ]
+        This repeats until the string ends with "\n\0"
+            (if you are viewing in html, the string ends with "\ n \ 0" if you remove the spaces.)
+        The index of the <area information> corresponds to the number of the area of interest.
+        If there are no areas of interest, an empty string is returned.
 
-            <area information> is formatted as follows:
-                <shell (motion) information><face information>
+        <area information> is formatted as follows:
+            {
+                "Faces": [ <face information>, <face information>, ... ],
+                "Shells": [ <shell information>, <shell information>, ... ]
+            }
 
-                <shell (motion) information> is formatted as follows:
-                    Shells:<motion> <motion> ]
-                        <motion> appears for each detected motion within the area of interest.
-                        Shell information ends with the ] character.
-                        If there are no shells within the area of interest, <shell (motion) information>
-                        is entirely empty.
-                <face information> is formatted as follows:
-                    Faces:<face> <face> ]
-                        <face> appears for each detected face within the area of interest.
-                        Face information ends with the ] character.
-                        If there are no shells within the area of interest, <face information>
-                        is entirely empty.
-                <motion> and <face> are formatted as follows:
-                    leftX;topY;width;height;
-                    A space is included at the end of each <motion> or <face>
+        <shell (motion) information> and <face information> are both formatted the same,
+        since they both represent rectangles of detected motion. The format is as
+        follows:
+            [ leftX, topY, width, height ]
+        We use a list since JSON does not use tuples.
 
         Several examples:
-            0|1|
+            [ { "Faces": [], "Shells": [] }, { "Faces": [], "Shells": [] } ]
                 No motion blobs or faces were contained in either area of interest.
-            0|Shells:260;136;332;200; ]1|Shells:135;0;415;400; ]
+
+            [ { "Faces": [], "Shells": [ [ 260, 136, 332, 200] ] },
+              { "Faces": [], "Shells": [ [ 135, 0, 415, 400 ] ] } ]
                 One motion blob was in one area of interest, and one was in the other.
-            0|Shells:0;0;214;630; ]Faces:63;138;639;213; ]1|Shells:0;20;428;105; ]
+
+            [ { "Faces": [ [ 63, 138, 639, 213 ] ], "Shells": [ [ 0, 0, 214, 630 ] ] },
+              { "Faces": [], "Shells": [ [ 0, 20, 428, 105 ] ] } ]
                 Area 0 had a motion blob and a face, and Area 1 had a different motion blob and no faces.
 
         @return: the formatted message string.
         """
 
-        message = ""
-        index = 0
+        areaData = []
 
         for area in self.interestList:
             # Formats the string for each area of interest.
-            # Adds "<area number>|<area information>" to the current end of message.
-            # The | character is only used within the string directly after an area of interest index.
-            message += index.__str__() + "|"
-            message += self.createAreaString(area)
-            index += 1
+            areaData.append(self.createAreaData(area))
 
-        #print("final message is: " + message + "\n\n\n\n\n\n\n")
+        # Use the JSON library to dump the list of area information into a JSON-formatted string.
+        message = json.dumps(areaData)
+
+        # print("final message is: " + message + "\n\n")
         # Adds characters to signal the end of the line/message. Java uses "\n" to signify end of line,
         # while Flash uses "\0"   (Flash seems to be an exception to the rule in this.)
         return message + "\n" + "\0"
 
-    def createAreaString(self, interestArea):
+    def createAreaData(self, interestArea):
         """
         Creates an information string containing all the data of the given AreaOfInterest
         (the data for all the areas of motion within the interest area, and then for all
@@ -208,70 +205,47 @@ class Data:
         coordinates only effect the output string: no Blob will have its fields changed).
 
         The area string is formatted as follows:
-            <shell (motion) information><face information>
+            {
+                "Faces": [ <face information>, <face information>, ... ],
+                "Shells": [ <shell information>, <shell information>, ... ]
+            }
 
-            <shell (motion) information> is formatted as follows:
-                Shells:<motion> <motion> ]
-                    <motion> appears for each detected motion within the area of interest.
-                    Shell information ends with the ] character.
-                    If there are no shells within the area of interest, <shell (motion) information>
-                    is entirely empty.
-            <face information> is formatted as follows:
-                Faces:<face> <face> ]
-                    <face> appears for each detected face within the area of interest.
-                    Face information ends with the ] character.
-                    If there are no shells within the area of interest, <face information>
-                    is entirely empty.
-            <motion> and <face> are formatted as follows:
-                leftX;topY;width;height;
-                A space is included at the end of each <motion> or <face>
+        <shell (motion) information> and <face information> are both formatted the same,
+        since they both represent rectangles of detected motion. The format is as
+        follows:
+            [ leftX, topY, width, height ]
+        We use a list since JSON does not use tuples.
 
         @param interestArea: the AreaOfInterest that the string is being created for.
         @return: the formatted message string.
         """
 
-        temp = ""
+        temp = {
+            "Shells": [],
+            "Faces": []
+        }
 
-        if (self.motionEnabled):
+        if self.motionEnabled:
             # Format the information for all of the motion within the area of interest.
-            temp += ""
-            added = False
-
             for item in self.shellList:
                 # Add each motion's information to the string if it is within interestArea.
                 current = self.editBounds(item, interestArea)
                 if current is not None:
                     # Get the scaled coordinates of the current motion.
                     scaled = current.scaleXYWH(interestArea, self.scalingWidth, self.scalingHeight)
-                    added = True
-                    # Add 'leftX;topY;width;height; ' to the information string.
-                    temp += scaled[0].__str__() + ";" + scaled[1].__str__() + ";" + \
-                            scaled[2].__str__() + ";" + scaled[3].__str__() + "; "
+                    # Add [leftX, topY, width, height] to the object.
+                    temp["Shells"].append(scaled)
 
-            # Only add the motion information if it isn't empty.
-            if added:
-                temp = "Shells:" + temp + "]"
-
-
-        if (self.facesEnabled):
+        if self.facesEnabled:
             # Format the information for all of the faces within the area of interest.
-            temp2 = ""
-            added = False
-
             for item in self.faceList:
                 # Add each face's information to the string if it is within interestArea.
                 current = self.editBounds(item, interestArea)
                 if current is not None:
-                    # Get the scaled coordinates of the current motion.
+                    # Get the scaled coordinates of the current face.
                     scaled = current.scaleXYWH(interestArea, self.scalingWidth, self.scalingHeight)
-                    added = True
-                    # Add 'leftX;topY;width;height; ' to the information string.
-                    temp2 += scaled[0].__str__() + ";" + scaled[1].__str__() + ";" + \
-                             scaled[2].__str__() + ";" + scaled[3].__str__() + "; "
-
-            # Only add the face information if it isn't empty.
-            if added:
-                temp += "Faces:" + temp2 + "]"
+                    # Add [leftX, topY, width, height] to the object.
+                    temp["Faces"].append(scaled)
 
         return temp
 
