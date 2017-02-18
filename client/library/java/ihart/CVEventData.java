@@ -1,14 +1,12 @@
-package event;
+package ihart;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * CVEventData holds all data necessary for a blob event. This class saves all
- * the information from the blob event into a vector
- * 
- * @author Cleo Schneider modified by Kalia her April 16, 2010
- * @author Felicia Cordeiro 1-7-11
+ * CVEventData holds all data necessary for a blob event. A CVEventData object
+ * may be associated with one or more CVEvent objects, since a FACE or SHELL
+ * event will also trigger an ALL_BLOBS event.
  **/
 
 public class CVEventData {

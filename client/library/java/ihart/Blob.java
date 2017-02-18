@@ -1,16 +1,11 @@
-package ihart.event;
+package ihart;
 
-import event.CVEvent.EVENT_TYPE;
+import ihart.CVEvent.EVENT_TYPE;
 
 /**
-	* Blob is a simple object which provides
-	* getters and setters and allows the user the ability
-	* to save information for a particular blob
-	* @author Cleo Schneider modified by Kalia Her April 16, 2010
-	* @author Felicia Cordeiro 1-18-11
-	*
-	**/
-
+ * Blob is a simple object which provides getters and allows the
+ * user to access the information for a particular blob.
+ **/
 public class Blob {
 
 

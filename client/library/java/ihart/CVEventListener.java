@@ -1,4 +1,4 @@
-package event;
+package ihart;
 
 import java.util.EventListener;
 
@@ -8,11 +8,11 @@ import java.util.EventListener;
 */
 public interface CVEventListener extends EventListener  { 
 	/** Invoked when shells are detected **/
-	public void shellsArrived(CVEvent shellEvt);
+	public void shellsArrived(CVEvent shellEvent);
 
 	/** Invoked when faces are detected **/
-	public void facesArrived(CVEvent faceEvt);
+	public void facesArrived(CVEvent faceEvent);
 
 	/** Invoked when any blobs are detected (includes both shells and faces) **/	
-	public void blobsArrived(CVEvent blobEvt);
+	public void blobsArrived(CVEvent blobEvent);
 }

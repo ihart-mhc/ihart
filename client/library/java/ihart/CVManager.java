@@ -1,4 +1,4 @@
-package event;
+package ihart;
 
 import java.net.*;
 import java.util.ArrayList;
@@ -91,19 +91,6 @@ public class CVManager {
 
 			while ((fromServer = in.readLine()) != null) {
 				try {
-					boolean isResuming = false; // is resume is used to simulate
-												// a click event
-
-					// TODO: I don't think this is included anymore? The flash
-					// library has it, though.
-					// if the resume character is found at the beginning of the
-					// string set is resuming to true
-					if (fromServer.substring(0, 2).trim().equals("R")) {
-						isResuming = true;
-						// after slice the character off
-						fromServer = fromServer.substring(1);
-					}
-
 					// Remove newline/carriage returns because the JSON parser
 					// doesn't like them.
 					fromServer = fromServer.replaceAll("\n", "");
@@ -155,7 +142,7 @@ public class CVManager {
 					}
 
 					// Dispatch the events with the associated data.
-					eventDispatcher(faceData, haveFaces, shellData, haveShells, numAreasOfInterest, isResuming);
+					eventDispatcher(faceData, haveFaces, shellData, haveShells, numAreasOfInterest);
 
 				} catch (ClassCastException e) {
 					System.out.println("Unexpected message format from server: " + e);
@@ -198,20 +185,20 @@ public class CVManager {
 	 * @param resumeEvent
 	 *            A boolean stating whether the event was a resume event of not
 	 */
-	public void eventDispatcher(List<ArrayList<Blob>> faceData, boolean haveFaces, List<ArrayList<Blob>> shellData,
-			boolean haveShells, int numAreasOfInterest, boolean resumeEvent) {
+	public void eventDispatcher(List<ArrayList<Blob>> faceData, boolean haveFaces,
+			List<ArrayList<Blob>> shellData, boolean haveShells, int numAreasOfInterest) {
 		CVEventData cvEventData = new CVEventData(faceData, shellData, numAreasOfInterest);
 
 		if (haveShells) {
-			dispatchEvent(new CVEvent(CVEvent.EVENT_TYPE.SHELL, cvEventData, resumeEvent));
+			dispatchEvent(new CVEvent(CVEvent.EVENT_TYPE.SHELL, cvEventData));
 		}
 		if (haveFaces) {
-			dispatchEvent(new CVEvent(CVEvent.EVENT_TYPE.FACE, cvEventData, resumeEvent));
+			dispatchEvent(new CVEvent(CVEvent.EVENT_TYPE.FACE, cvEventData));
 		}
 		// If we have either type of blob (or both), send out a general blob
 		// event.
 		if (haveShells || haveFaces) {
-			dispatchEvent(new CVEvent(CVEvent.EVENT_TYPE.ALL_BLOBS, cvEventData, resumeEvent));
+			dispatchEvent(new CVEvent(CVEvent.EVENT_TYPE.ALL_BLOBS, cvEventData));
 		}
 	}
 
