@@ -189,7 +189,6 @@ class Data:
         # Use the JSON library to dump the list of area information into a JSON-formatted string.
         message = json.dumps(areaData)
 
-        # print("final message is: " + message + "\n\n")
         # Adds characters to signal the end of the line/message. Java uses "\n" to signify end of line,
         # while Flash uses "\0"   (Flash seems to be an exception to the rule in this.)
         return message + "\n" + "\0"
