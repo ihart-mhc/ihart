@@ -28,9 +28,6 @@ public class CVEvent extends EventObject {
 	 *            The type of the event
 	 * @param cvData
 	 *            The event data involved in the event
-	 * @param isResuming
-	 *            Whether or not the event is resuming
-	 *
 	 **/
 	public CVEvent(EVENT_TYPE type, CVEventData cvData) {
 		super(cvData);
