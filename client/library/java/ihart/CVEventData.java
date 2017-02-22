@@ -8,8 +8,8 @@ import java.util.List;
  * may be associated with one or more CVEvent objects, since a FACE or SHELL
  * event will also trigger an ALL_BLOBS event.
  **/
-
-public class CVEventData {
+// This class is deliberately left package-private.
+class CVEventData {
 
 	/**
 	 * FIELDS
@@ -33,8 +33,17 @@ public class CVEventData {
 
 	/**
 	 * The constructor for CVEventData.
+	 * 
+	 * @param faceDataByRegion
+	 *            The list of face events, separated into lists by region of
+	 *            interest
+	 * @param shellDataByRegion
+	 *            The list of shell events, separated into lists by region of
+	 *            interest
+	 * @param numRegionsOfInterest
+	 *            The number of regions of interest we currently have
 	 */
-	public CVEventData(List<ArrayList<Blob>> faceDataByRegion, List<ArrayList<Blob>> shellDataByRegion,
+	CVEventData(List<ArrayList<Blob>> faceDataByRegion, List<ArrayList<Blob>> shellDataByRegion,
 			int numRegionsOfInterest) {
 		this.shellDataByRegion = shellDataByRegion;
 		this.faceDataByRegion = faceDataByRegion;
@@ -62,7 +71,7 @@ public class CVEventData {
 	/**
 	 * @return The number of regions/areas of interest
 	 */
-	public int getNumRegionsOfInterest() {
+	int getNumRegionsOfInterest() {
 		return numRegionsOfInterest;
 	}
 
@@ -73,7 +82,7 @@ public class CVEventData {
 	 *            The type of event to return the number of blobs for
 	 * @return The total number of blobs
 	 **/
-	public int getTotalNumBlobs(CVEvent.EVENT_TYPE type) {
+	int getTotalNumBlobs(CVEvent.EVENT_TYPE type) {
 		switch (type) {
 		case FACE:
 			return allFaceData.size();
@@ -96,7 +105,7 @@ public class CVEventData {
 	 *            exception if the region does not exist.
 	 * @return The number of blobs in a particular region of interest
 	 */
-	public int getNumBlobsInRegion(CVEvent.EVENT_TYPE type, int regionOfInterest) {
+	int getNumBlobsInRegion(CVEvent.EVENT_TYPE type, int regionOfInterest) {
 		switch (type) {
 		case FACE:
 			return faceDataByRegion.get(regionOfInterest).size();
@@ -117,7 +126,7 @@ public class CVEventData {
 	 *            The type of event to return the blobs for
 	 * @return All blobs.
 	 */
-	public List<Blob> getAllBlobs(CVEvent.EVENT_TYPE type) {
+	List<Blob> getAllBlobs(CVEvent.EVENT_TYPE type) {
 		switch (type) {
 		case FACE:
 			return allFaceData;
@@ -143,7 +152,7 @@ public class CVEventData {
 	 * @return The blobs of a particular type that occurred within the given
 	 *         region of interest
 	 */
-	public List<Blob> getBlobsInRegion(CVEvent.EVENT_TYPE type, int regionOfInterest) {
+	List<Blob> getBlobsInRegion(CVEvent.EVENT_TYPE type, int regionOfInterest) {
 		switch (type) {
 		case FACE:
 			return faceDataByRegion.get(regionOfInterest);

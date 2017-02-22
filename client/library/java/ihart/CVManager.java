@@ -29,6 +29,14 @@ public class CVManager {
 	 * The constructor sets up the socket with the given hostName and port, then
 	 * connects and sets up listeners for data received and dispatches
 	 * corresponding CVEvents when motion events occur.
+	 * 
+	 * @param hostname
+	 *            The host to connect to; if the same computer is running the
+	 *            server and the application, use "localhost".
+	 * @param port
+	 *            The port number to connect to. The default for the server is
+	 *            5204; use this unless you know the server is running on a
+	 *            different port.
 	 **/
 	public CVManager(String hostname, int port) {
 		this.hostname = hostname;
@@ -58,7 +66,7 @@ public class CVManager {
 	}
 
 	/**
-	 * Remove a listener to the Event Listener List.
+	 * Remove a listener from the Event Listener List.
 	 * 
 	 * @param listener
 	 *            The listener to be removed from the list
@@ -71,10 +79,10 @@ public class CVManager {
 	 * Parse the data from the server, store the data, and dispatch the
 	 * appropriate events.
 	 * 
-	 * @param The
-	 *            port to connect to
+	 * @param port
+	 *            The to connect to
 	 */
-	public void dataHandler(int port) {
+	private void dataHandler(int port) {
 		// the string of data from the server
 		String fromServer;
 
@@ -169,24 +177,24 @@ public class CVManager {
 	/**
 	 * Checks the number of each type of blob and dispatches the appropriate
 	 * events. If there is at least one of a type of blob, that type of event is
-	 * dispatched. If there is at least one blob, then allBlob event type is
-	 * dispatched
+	 * dispatched. If there is at least one blob, then ALL_BLOB event type is
+	 * dispatched.
 	 * 
-	 * @param numShells
-	 *            The number of shells in the event
-	 * @param numHoles
-	 *            The number of holes in the event
-	 * @param numFaces
-	 *            The number of faces in the event
-	 * @param numBlobs
-	 *            The number of blobs in the event
-	 * @param eventData
-	 *            The event data
-	 * @param resumeEvent
-	 *            A boolean stating whether the event was a resume event of not
+	 * @param faceData
+	 *            The list of face events, separated into lists by region of
+	 *            interest
+	 * @param haveFaces
+	 *            Whether or not any faces were detected
+	 * @param shellData
+	 *            The list of shell events, separated into lists by region of
+	 *            interest
+	 * @param haveShells
+	 *            Whether or not any shells were detected
+	 * @param numAreasOfInterest
+	 *            The number of regions of interest we currently have
 	 */
-	public void eventDispatcher(List<ArrayList<Blob>> faceData, boolean haveFaces,
-			List<ArrayList<Blob>> shellData, boolean haveShells, int numAreasOfInterest) {
+	private void eventDispatcher(List<ArrayList<Blob>> faceData, boolean haveFaces, List<ArrayList<Blob>> shellData,
+			boolean haveShells, int numAreasOfInterest) {
 		CVEventData cvEventData = new CVEventData(faceData, shellData, numAreasOfInterest);
 
 		if (haveShells) {
