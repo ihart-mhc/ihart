@@ -134,7 +134,7 @@ class Blob:
                             of the calculation to scale the coordinates.
         @param newWidth: the width to scale to.
         @param newHeight: the height to scale to.
-        @return tuple, the scaled (leftX, topY, width, height) of the blob.
+        @return list, the scaled [leftX, topY, width, height] of the blob.
         """
 
         # Save the fields into local variables so that they aren't changed.
@@ -172,4 +172,4 @@ class Blob:
         h = h * yChange
 
         # Return the scaled data.
-        return (x,y,w,h)
+        return [x,y,w,h]
