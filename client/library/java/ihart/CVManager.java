@@ -29,7 +29,7 @@ public class CVManager {
 	 * The constructor sets up the socket with the given hostName and port, then
 	 * connects and sets up listeners for data received and dispatches
 	 * corresponding CVEvents when motion events occur.
-	 * 
+	 *
 	 * @param hostname
 	 *            The host to connect to; if the same computer is running the
 	 *            server and the application, use "localhost".
@@ -57,7 +57,7 @@ public class CVManager {
 
 	/**
 	 * Add a listener to the Event Listener List.
-	 * 
+	 *
 	 * @param listener
 	 *            The listener to be added to the list
 	 */
@@ -67,7 +67,7 @@ public class CVManager {
 
 	/**
 	 * Remove a listener from the Event Listener List.
-	 * 
+	 *
 	 * @param listener
 	 *            The listener to be removed from the list
 	 */
@@ -78,7 +78,7 @@ public class CVManager {
 	/**
 	 * Parse the data from the server, store the data, and dispatch the
 	 * appropriate events.
-	 * 
+	 *
 	 * @param port
 	 *            The to connect to
 	 */
@@ -91,8 +91,8 @@ public class CVManager {
 		BufferedReader in = null;
 
 		try {
-			// connect to the server with host name "localhost" on port 5204
-			mySocket = new Socket("localhost", port);
+			// connect to the server with specified host name and port
+			mySocket = new Socket(hostname, port);
 			out = new PrintWriter(mySocket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(mySocket.getInputStream(), "UTF-8"));
 			System.out.println("Connected to localhost");
@@ -179,7 +179,7 @@ public class CVManager {
 	 * events. If there is at least one of a type of blob, that type of event is
 	 * dispatched. If there is at least one blob, then ALL_BLOB event type is
 	 * dispatched.
-	 * 
+	 *
 	 * @param faceData
 	 *            The list of face events, separated into lists by region of
 	 *            interest
@@ -213,7 +213,7 @@ public class CVManager {
 	/**
 	 * Each listener occupies two elements - the first is the listener class and
 	 * the second is the listener instance
-	 * 
+	 *
 	 * @param evt
 	 *            The event to dispatch
 	 */
