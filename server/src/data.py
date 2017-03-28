@@ -87,6 +87,7 @@ class Data:
     mWindow = "motion"
     gWindow = "settings"
     hWindow = "help window"
+    windows = [vWindow, mWindow, gWindow, hWindow]
 
     # The trackbars for the server settings. openCV uses strings to retrieve the different trackbars.
     motionTrackbar = "motion threshold"
@@ -385,6 +386,7 @@ class Data:
         Displays the current captured image (the most recent) on the video window.
         @return:
         """
+        self.checkWindowsStatus()
 
         # displays the image, self.video, on the video window, self.vWindow
         cv2.imshow(self.vWindow, self.video)
@@ -496,6 +498,22 @@ class Data:
                 self.interestList.remove(toRemove)
         # Redraw self.video on vWindow.
         cv2.imshow(self.vWindow, self.video)
+	
+    def quit(self):
+        cv2.destroyAllWindows()
+        self.videoCapture.release()
+        sys.exit()
+
+    def checkWindowsStatus(self):
+        """
+        If any is closed, close all.
+        """
+        for window in self.windows:
+            if window != self.hWindow:
+                windowStatus = cv2.getWindowProperty(window, 0)
+                if windowStatus < 0:
+                    self.quit()
+
 
     def updateTrackbars(self, x):
         """
@@ -506,9 +524,7 @@ class Data:
 
         # If the quit trackbar is on 1, exit the program.
         if cv2.getTrackbarPos(self.quitTrackbar, self.gWindow) == 1:
-            cv2.destroyAllWindows()
-            self.videoCapture.release() # destroy the video capture separately
-            sys.exit()
+		self.quit()
 
         # facesEnabled, motionEnabled, and flipHorizontal should all be True if their
         # trackbars are set to 1, and False otherwise.

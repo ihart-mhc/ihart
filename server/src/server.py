@@ -109,6 +109,8 @@ class Server:
         Searches for motion in the video feed; puts the found motion in data.shellList (instances of Blob).
         @return: none
         """
+        
+        self.data.checkWindowsStatus()
 
         # Creates average, if it doesn't yet exist.
         if (self.data.average is None):
