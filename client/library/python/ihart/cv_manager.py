@@ -13,23 +13,23 @@ from cv_event_data import CVEventData
 class CVManager:
     """
     Sets up a non-blocking connection to the server via sockets. New events can
-    be retrieved via the `getNewEvents()` method.
+    be retrieved via the getNewEvents() method.
     """
 
-    client_socket = None
-    connectionSucceeded = False
+    _client_socket = None
+    _connectionSucceeded = False
 
     def __init__(self, host="localhost", port=5204):
-        self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self._client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         try:
-            self.client_socket.connect((host, port))
+            self._client_socket.connect((host, port))
 
             # Make the socket non-blocking
             # (see http://docs.python.org/library/socket.html#socket.socket.setblocking)
-            self.client_socket.setblocking(0)
+            self._client_socket.setblocking(0)
 
-            self.connectionSucceeded = True
+            self._connectionSucceeded = True
 
         # If we can't connect, report the error; we can't really recover from
         # not being able to establish a connection, but we don't want to crash.
@@ -40,12 +40,13 @@ class CVManager:
 
     def getNewEvents(self):
         """
-        @return a CVEventData object containing information about faces and
-            motion (aka shells) detected by the server, or None if there was
-            nothing to detect
+        @return a list of CVEventData objects containing information about faces and
+            motion (aka shells) detected by the server. The list will be in order the
+            events arrived. The list will be empty if there was nothing to detect.
+            None will be returned if the server sent no data, or if an error occurred.
         """
         # We can't do anything if the connection wasn't established
-        if not self.connectionSucceeded:
+        if not self._connectionSucceeded:
             return None
 
         # Try to grab a message from the server and parse it into an event data
@@ -62,7 +63,7 @@ class CVManager:
         Close the connection to the server.
         @return None
         """
-        self.client_socket.close()
+        self._client_socket.close()
 
 
     def _tryToReceiveEvents(self):
@@ -77,16 +78,16 @@ class CVManager:
             error ocurred)
         """
         # See if the client socket is ready to be read from.
-        read_ready, _, _ = select.select([self.client_socket], [], [])
+        read_ready, _, _ = select.select([self._client_socket], [], [])
 
-        if self.client_socket in read_ready:
+        if self._client_socket in read_ready:
             # The socket has data ready to be received
             message = ""
             continue_recv = True
             while continue_recv:
                 try:
                     # Try to receive som data
-                    message += self.client_socket.recv(1024)
+                    message += self._client_socket.recv(1024)
                 except socket.error, e:
                     if e.errno != socket.errno.EWOULDBLOCK:
                         # Error! Print it and tell main loop to stop
@@ -117,16 +118,17 @@ class CVManager:
 
         # Process each message into an object containing all of the event
         # information.
-        numRoi = 0
-        facesByRegion = []
-        shellsByRegion = []
-
+        events = []
         for message in messages:
             if not message:
                 continue
 
+            # TODO: wrap this in a try-except block in case the parsing fails?
             data = json.loads(message)
-            numRoi = max(numRoi, len(data))
+            numRoi = len(data)
+
+            facesByRegion = []
+            shellsByRegion = []
 
             # Process the blobs in each region of interest and store them in the
             # corresponding list.
@@ -134,7 +136,9 @@ class CVManager:
                 facesByRegion.append([ Blob(b[0], b[1], b[2], b[3], roi, Blob.FACE) for b in blobs["Faces"] ])
                 shellsByRegion.append([ Blob(b[0], b[1], b[2], b[3], roi, Blob.SHELL) for b in blobs["Shells"] ])
 
-        return CVEventData(facesByRegion, shellsByRegion, numRoi)
+            events.append(CVEventData(facesByRegion, shellsByRegion, numRoi))
+
+        return events
 
 
 

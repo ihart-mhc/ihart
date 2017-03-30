@@ -29,7 +29,7 @@ class GUI(Widget):
     def drawCircleFromBlob(self, blob):
         # Draw a circle where the blob is.
         with self.canvas:
-            if blob.type == ihart.Blob.FACE:
+            if blob.blob_type == ihart.Blob.FACE:
                 Color(1, 1, 0) # Yellow
             else: # ihart.Blob.SHELL
                 Color(0, 1, 1) # Blue
@@ -60,10 +60,10 @@ class SampleIHartApp(App):
         """
         # Get any new events from the server since the last time this method
         # was called.
-        eventData = self.cvManager.getNewEvents()
+        events = self.cvManager.getNewEvents()
 
-        # eventData can be None, so only get blobs if it exists.
-        if eventData:
+        # events can be None or a list of event data objects.
+        for eventData in events:
             blobs = eventData.getAllBlobs()
             print "received", len(blobs), "blob(s) from iHart server"
 
