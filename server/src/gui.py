@@ -238,8 +238,8 @@ class MenuBar():
         pass
 
 
-"""This is the code that is executed by python when we run this .py file"""
-if __name__ == '__main__':
-    root = Tk()  # creates an instance --> what we call the root window
-    App(root)
-    root.mainloop()
+# """This is the code that is executed by python when we run this .py file"""
+# if __name__ == '__main__':
+#     root = Tk()  # creates an instance --> what we call the root window
+#     App(root)
+#     root.mainloop()

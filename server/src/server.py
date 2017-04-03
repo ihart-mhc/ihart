@@ -36,6 +36,7 @@ from blob import Blob
 from data import Data
 from socket_handler import SocketHandler
 from utility import *
+from gui import *
 
 
 class Server:
@@ -383,5 +384,7 @@ if __name__ == "__main__":
     parser.add_argument('-i', '--cameraindex', help='Which camera input to connect to', type=int, default=0)
     args = parser.parse_args()
 
+    root = Tk()  # creates an instance --> what we call the root window
+    App(root)
     # Starts the program.
     Server(autostart=args.autostart, cameraindex=args.cameraindex)

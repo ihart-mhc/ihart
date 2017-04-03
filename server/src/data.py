@@ -14,6 +14,7 @@ import sys      # so that we can exit()
 from area_of_interest import AreaOfInterest
 from blob import Blob
 from utility import *
+from gui import *
 
 class Data:
     """
