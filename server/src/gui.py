@@ -147,6 +147,7 @@ class Slider():
         for r in range(num):
             self.labels[r] = Label(frame, text=self.label_text[r])
             self.inputs[r] = initial
+            #, command = lambda r=r: self.update(r)
             self.scales[r] = Scale(frame, from_=0, to=self.to_value[r], variable=self.vars[r], orient=HORIZONTAL)
             self.scales[r].set(self.inputs[r])
             self.increases[r] = Button(frame, text="+", command=lambda r=r: self.increase_this(r))
@@ -167,13 +168,15 @@ class Slider():
         self.decrease_this(0)
 
     def increase_this(self, i):
-        input = self.inputs[i]
+        self.inputs[i] = self.scales[i].get()
+        input  = self.inputs[i]
         if (input + 1 <= self.to_value[i]):
             self.inputs[i] = input + 1
         self.scales[i].set(self.inputs[i])
         # self.getValues()
 
     def decrease_this(self, r):
+        self.inputs[r] = self.scales[r].get()
         input = self.inputs[r]
         if (input - 1 >= 0):
             self.inputs[r] = input - 1
@@ -185,6 +188,11 @@ class Slider():
         for i in range(5):
             print self.label_text[i]
             print self.scales[i].get()
+
+    def update(self, i):
+        input = i;
+        #if input == 1:
+
 
 
 class MenuBar():
