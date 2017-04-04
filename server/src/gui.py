@@ -4,12 +4,16 @@ from tkFont import Font
 import sys
 
 class App():
-    def __init__(self, root):
+    def __init__(self, root): #, motionCallback, blurCallback, etc etc):
         self.root = root  # creates an instance --> what we call the root window
         self.main_panel = MainPanel(self.root)
         self.upper_bar = UpperBar(self.root, self.main_panel)
         self.slider = Slider(self.root, self.main_panel)
         self.menu = MenuBar(self.root, self.main_panel)
+
+    # in increase or decrease:
+    # motionCallback(some value)
+    # or: blurCallback(another value)
 
 
 class MainPanel():
@@ -127,21 +131,21 @@ class Slider():
 
     def create_buttons(self, frame):
 
-        label_text = ["Reduce Noise", "Blur Value", "Blob Size", "Motion Thread", "Merge Distance"]
+        self.label_text = ["Reduce Noise", "Blur Value", "Blob Size", "Motion Thread", "Merge Distance"]
         self.to_value = [20, 20, 20, 50, 10]
-        num = label_text.__len__()
+        num = self.label_text.__len__()
         self.inputs = [None for _ in range(num)]
         self.labels = [None for _ in range(num)]
         self.scales = [None for _ in range(num)]
         self.increases = [None for _ in range(num)]
         self.decreases = [None for _ in range(num)]
-        self.vars = [None for _ in range(num)]
+        self.vars = [0] *num
 
         for i in range(num):
             self.vars[i] = IntVar()
         initial = 10
         for r in range(num):
-            self.labels[r] = Label(frame, text=label_text[r])
+            self.labels[r] = Label(frame, text=self.label_text[r])
             self.inputs[r] = initial
             self.scales[r] = Scale(frame, from_=0, to=self.to_value[r], variable=self.vars[r], orient=HORIZONTAL)
             self.scales[r].set(self.inputs[r])
@@ -167,12 +171,20 @@ class Slider():
         if (input + 1 <= self.to_value[i]):
             self.inputs[i] = input + 1
         self.scales[i].set(self.inputs[i])
+        # self.getValues()
 
     def decrease_this(self, r):
         input = self.inputs[r]
         if (input - 1 >= 0):
             self.inputs[r] = input - 1
         self.scales[r].set(self.inputs[r])
+        #self.getValues()
+        #self.data.updateTrackbars()
+
+    def getValues(self):
+        for i in range(5):
+            print self.label_text[i]
+            print self.scales[i].get()
 
 
 class MenuBar():
@@ -238,8 +250,8 @@ class MenuBar():
         pass
 
 
-# """This is the code that is executed by python when we run this .py file"""
-# if __name__ == '__main__':
-#     root = Tk()  # creates an instance --> what we call the root window
-#     App(root)
-#     root.mainloop()
+"""This is the code that is executed by python when we run this .py file"""
+if __name__ == '__main__':
+    root = Tk()  # creates an instance --> what we call the root window
+    App(root)
+    root.mainloop()

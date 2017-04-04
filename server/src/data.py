@@ -564,27 +564,31 @@ class Data:
         cv2.namedWindow(self.mWindow)
         cv2.resizeWindow(self.mWindow, self.iHartWidth, self.iHartHeight)
 
-        # Create a window for the settings trackbars and resize it.
-        cv2.namedWindow(self.gWindow, flags=cv2.WINDOW_NORMAL)
-        cv2.resizeWindow(self.gWindow, 550, 150)
+        # # Create a window for the settings trackbars and resize it.
+        # cv2.namedWindow(self.gWindow, flags=cv2.WINDOW_NORMAL)
+        # cv2.resizeWindow(self.gWindow, 550, 150)
+        #
+        # # Create all the trackbars, put them all in gWindow, and set them all to use updateTrackbars
+        # # as their action listener.
+        # # createTrackbar takes the following arguments:
+        # #   variable for the trackbar to be stored in, window to appear on, value to start at (not minimum value),
+        # #   maximum value, and action listener method.
+        # # Trackbars' minimum value is always 0.
+        # # (With openCV's GUI, there are no buttons so trackbars with only two options substitute for them).
+        # cv2.createTrackbar(self.motionTrackbar, self.gWindow, self.motionThreshold, 50, self.updateTrackbars)
+        # cv2.createTrackbar(self.blurTrackbar, self.gWindow, self.blurValue, 20, self.updateTrackbars)
+        # cv2.createTrackbar(self.noiseTrackbar, self.gWindow, self.noiseReductionValue, 20, self.updateTrackbars)
+        # cv2.createTrackbar(self.dilateTrackbar, self.gWindow, self.dilationValue, 20, self.updateTrackbars)
+        # cv2.createTrackbar(self.facesTrackbar, self.gWindow, 0, 1, self.updateTrackbars)
+        # cv2.createTrackbar(self.quitTrackbar, self.gWindow, 0, 1, self.updateTrackbars)
+        # cv2.createTrackbar(self.motionEnableTrackbar, self.gWindow, 1, 1, self.updateTrackbars)
+        # cv2.createTrackbar(self.flipTrackbar, self.gWindow, 0, 1, self.updateTrackbars)
+        # cv2.createTrackbar(self.helpTrackbar, self.gWindow, 0, 1, self.updateTrackbars)
+        # cv2.createTrackbar(self.mergeTrackbar, self.gWindow, int(self.mergeDistance*10), 9, self.updateTrackbars)
 
-        # Create all the trackbars, put them all in gWindow, and set them all to use updateTrackbars
-        # as their action listener.
-        # createTrackbar takes the following arguments:
-        #   variable for the trackbar to be stored in, window to appear on, value to start at (not minimum value),
-        #   maximum value, and action listener method.
-        # Trackbars' minimum value is always 0.
-        # (With openCV's GUI, there are no buttons so trackbars with only two options substitute for them).
-        cv2.createTrackbar(self.motionTrackbar, self.gWindow, self.motionThreshold, 50, self.updateTrackbars)
-        cv2.createTrackbar(self.blurTrackbar, self.gWindow, self.blurValue, 20, self.updateTrackbars)
-        cv2.createTrackbar(self.noiseTrackbar, self.gWindow, self.noiseReductionValue, 20, self.updateTrackbars)
-        cv2.createTrackbar(self.dilateTrackbar, self.gWindow, self.dilationValue, 20, self.updateTrackbars)
-        cv2.createTrackbar(self.facesTrackbar, self.gWindow, 0, 1, self.updateTrackbars)
-        cv2.createTrackbar(self.quitTrackbar, self.gWindow, 0, 1, self.updateTrackbars)
-        cv2.createTrackbar(self.motionEnableTrackbar, self.gWindow, 1, 1, self.updateTrackbars)
-        cv2.createTrackbar(self.flipTrackbar, self.gWindow, 0, 1, self.updateTrackbars)
-        cv2.createTrackbar(self.helpTrackbar, self.gWindow, 0, 1, self.updateTrackbars)
-        cv2.createTrackbar(self.mergeTrackbar, self.gWindow, int(self.mergeDistance*10), 9, self.updateTrackbars)
+        # self.gui = App(self.updateMotion, self.updateBlur, etc etc etc)
+        # like updateTrackbar
+        # def updateMotion(self, newVal): do something
 
         # Add an action listener to the video feed window.
         cv2.setMouseCallback(self.vWindow, self.mouseClicked, None)
