@@ -387,7 +387,7 @@ class Data:
         @return:
         """
         self.checkWindowsStatus()
-
+        
         # displays the image, self.video, on the video window, self.vWindow
         cv2.imshow(self.vWindow, self.video)
 
@@ -498,15 +498,21 @@ class Data:
                 self.interestList.remove(toRemove)
         # Redraw self.video on vWindow.
         cv2.imshow(self.vWindow, self.video)
-	
+
     def quit(self):
+        """
+        Kills the server and destroys all open window instances
+        Video capture needs to be destroyed seperately by calling release
+        """
         cv2.destroyAllWindows()
         self.videoCapture.release()
         sys.exit()
-
+   
     def checkWindowsStatus(self):
         """
-        If any is closed, close all.
+        In the list of open window instances, check if any is closed using getWindowProperty()
+        This does not include the help window "hWindow". We do not want closing the help window to affect the running of the other windows.
+        If a window has been closed,getWindowProperty will return -1 and invoke quit
         """
         for window in self.windows:
             if window != self.hWindow:
@@ -524,7 +530,7 @@ class Data:
 
         # If the quit trackbar is on 1, exit the program.
         if cv2.getTrackbarPos(self.quitTrackbar, self.gWindow) == 1:
-		self.quit()
+            self.quit() 
 
         # facesEnabled, motionEnabled, and flipHorizontal should all be True if their
         # trackbars are set to 1, and False otherwise.
