@@ -87,6 +87,7 @@ class Data:
     mWindow = "motion"
     gWindow = "settings"
     hWindow = "help window"
+    windows = [vWindow, mWindow, gWindow, hWindow]
 
     # The trackbars for the server settings. openCV uses strings to retrieve the different trackbars.
     motionTrackbar = "motion threshold"
@@ -385,7 +386,8 @@ class Data:
         Displays the current captured image (the most recent) on the video window.
         @return:
         """
-
+        self.checkWindowsStatus()
+        
         # displays the image, self.video, on the video window, self.vWindow
         cv2.imshow(self.vWindow, self.video)
 
@@ -497,6 +499,28 @@ class Data:
         # Redraw self.video on vWindow.
         cv2.imshow(self.vWindow, self.video)
 
+    def quit(self):
+        """
+        Kills the server and destroys all open window instances
+        Video capture needs to be destroyed seperately by calling release
+        """
+        cv2.destroyAllWindows()
+        self.videoCapture.release()
+        sys.exit()
+   
+    def checkWindowsStatus(self):
+        """
+        In the list of open window instances, check if any is closed using getWindowProperty()
+        This does not include the help window "hWindow". We do not want closing the help window to affect the running of the other windows.
+        If a window has been closed,getWindowProperty will return -1 and invoke quit
+        """
+        for window in self.windows:
+            if window != self.hWindow:
+                windowStatus = cv2.getWindowProperty(window, 0)
+                if windowStatus < 0:
+                    self.quit()
+
+
     def updateTrackbars(self, x):
         """
         Responds to movement of the trackbars by updating the appropriate settings.
@@ -506,9 +530,7 @@ class Data:
 
         # If the quit trackbar is on 1, exit the program.
         if cv2.getTrackbarPos(self.quitTrackbar, self.gWindow) == 1:
-            cv2.destroyAllWindows()
-            self.videoCapture.release() # destroy the video capture separately
-            sys.exit()
+            self.quit() 
 
         # facesEnabled, motionEnabled, and flipHorizontal should all be True if their
         # trackbars are set to 1, and False otherwise.
