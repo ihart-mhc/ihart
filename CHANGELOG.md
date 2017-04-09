@@ -2,6 +2,13 @@
 All notable changes to the iHart server will be documented in this file.
 This project does its best to adhere to [Semantic Versioning](http://semver.org/).
 
+## [Dev]
+### Fixed
+- The program quits when the "X" button in the window is clicked
+
+### Changed
+- Messages are sent as JSON instead of a custom format. This is *not* backwards compatible with the Flash client, and there are no plans to update it. The Java client and the Python client use JSON. 
+
 ## [2.3.1]
 ### Fixed
 - The `--cameraindex` flag should be recognized when autostarting as well as during normal startup.
