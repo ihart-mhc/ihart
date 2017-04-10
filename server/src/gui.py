@@ -1,7 +1,6 @@
 import tkMessageBox
 from Tkinter import *
 from tkFont import Font
-import sys
 
 class App():
     def __init__(self, root): #, motionCallback, blurCallback, etc etc):
@@ -50,38 +49,21 @@ class MainPanel():
         self.frame_height = int(self.default_height * self.ratio)
         self.root.geometry("%dx%d" % (self.frame_width, self.frame_height))
 
-    def larger_font(self):
-        self.ratio = self.ratio * 1.1
-        if self.ratio <= 1.50:
-            size = self.custom_font['size']
-            self.custom_font.configure(size=size + 2)
-            self.frame_dimensions()
-            self.root.update_idletasks()
-
-    def smaller_font(self):
-        self.ratio = self.ratio * 0.9
-        if self.ratio >= 0.65:
-            size = self.custom_font['size']
-            self.custom_font.configure(size=size - 2)
-            self.frame_dimensions()
-            self.root.update_idletasks()
-
-    def change_font(self, n):
-        courier12 = Font(family="courier", size=12)
-        helv12 = Font(family="Helvetica", size=12)
-        times12 = Font(family="Times", size=12)
-        if n == 1:
-            self.root.option_add("*Font", courier12)
-            # self.custom_font.config(family="courier")
-            self.root.update_idletasks()
-            # self.root.option_add("*Font", courier12)
-        elif n == 2:
-            # self.custom_font.config(family="Helvetica")
-            self.root.update_idletasks()
-            # self.root.option_add("*Font", helv12)
-        elif n == 3:
-            self.custom_font.config(family="Times")
-            self.root.update_idletasks()
+    # def larger_font(self):
+    #     self.ratio = self.ratio * 1.1
+    #     if self.ratio <= 1.50:
+    #         size = self.custom_font['size']
+    #         self.custom_font.configure(size=size + 2)
+    #         self.frame_dimensions()
+    #         self.root.update_idletasks()
+    #
+    # def smaller_font(self):
+    #     self.ratio = self.ratio * 0.9
+    #     if self.ratio >= 0.65:
+    #         size = self.custom_font['size']
+    #         self.custom_font.configure(size=size - 2)
+    #         self.frame_dimensions()
+    #         self.root.update_idletasks()
 
 
 class UpperBar():
@@ -118,11 +100,13 @@ class Slider():
         checkbox_frame.grid(row=2, column=0, columnspan=2,
                             sticky=W + E + S)  # WE - stretch it horizontally but leave it centered vertically.
 
-        enableface_checkbox = Checkbutton(checkbox_frame, text="Enable Face", variable=FaceVar, onvalue=1, offvalue=0)
-        enablemotion_checkbox = Checkbutton(checkbox_frame, text="Enable Motion", variable=MotionVar, onvalue=True,
+        self.enableface_checkbox = Checkbutton(checkbox_frame, text="Enable Face", variable=FaceVar, onvalue=1, offvalue=0)
+        self.enablemotion_checkbox = Checkbutton(checkbox_frame, text="Enable Motion", variable=MotionVar, onvalue=True,
                                             offvalue=False)
-        enableface_checkbox.grid(row=0, column=0, sticky=N + S + W, padx=15)
-        enablemotion_checkbox.grid(row=0, column=2, sticky=N + S + E)
+        # self.enablemotion_checkbox.trace()
+
+        self.enableface_checkbox.grid(row=0, column=0, sticky=N + S + W, padx=15)
+        self.enablemotion_checkbox.grid(row=0, column=2, sticky=N + S + E)
 
         bottom_frame = Frame(self.root)
         bottom_frame.grid(row=3, column=0, columnspan=3, sticky=W + E + S)
@@ -214,11 +198,12 @@ class MenuBar():
         aboutMenu.add_command(label="Info", command=self.info)
         self.menubar.add_cascade(label="About", menu=aboutMenu)
 
-        # #preference menu
-        prefMenu = Menu(self.menubar, tearoff=0)
-        prefMenu.add_command(label="Larger Font", command=self.board.larger_font)
-        prefMenu.add_command(label="Smaller Font", command=self.board.smaller_font)
-        self.menubar.add_cascade(label="Preference", menu=prefMenu)
+        #
+        # # #preference menu
+        # prefMenu = Menu(self.menubar, tearoff=0)
+        # prefMenu.add_command(label="Larger Font", command=self.board.larger_font)
+        # prefMenu.add_command(label="Smaller Font", command=self.board.smaller_font)
+        # self.menubar.add_cascade(label="Preference", menu=prefMenu)
 
         # quit menu
         quitMenu = Menu(self.menubar, tearoff=0)

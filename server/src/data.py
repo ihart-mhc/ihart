@@ -14,7 +14,7 @@ import sys      # so that we can exit()
 from area_of_interest import AreaOfInterest
 from blob import Blob
 from utility import *
-from gui import *
+import gui as gui
 
 class Data:
     """
@@ -498,6 +498,7 @@ class Data:
         # Redraw self.video on vWindow.
         cv2.imshow(self.vWindow, self.video)
 
+
     def updateTrackbars(self, x):
         """
         Responds to movement of the trackbars by updating the appropriate settings.
@@ -514,6 +515,7 @@ class Data:
         # facesEnabled, motionEnabled, and flipHorizontal should all be True if their
         # trackbars are set to 1, and False otherwise.
         self.facesEnabled = (cv2.getTrackbarPos(self.facesTrackbar, self.gWindow) == 1)
+        self.facesEnabled = gui.enable
         self.motionEnabled = (cv2.getTrackbarPos(self.motionEnableTrackbar, self.gWindow) == 1)
         self.flipHorizontal = (cv2.getTrackbarPos(self.flipTrackbar, self.gWindow) == 1)
 
