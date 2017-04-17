@@ -26,7 +26,12 @@ simply change the position of the trackbar.
 """
 
 # External module dependencies
+
 import argparse # to parse command-line arguments
+# need to import gui and Tk before numpy to avoid an error
+from gui import App, Tk
+root= Tk()
+
 import cv2      # openCV
 import numpy    # needed for openCV
 import sys      # so that we can exit()
@@ -36,7 +41,6 @@ from blob import Blob
 from data import Data
 from socket_handler import SocketHandler
 from utility import *
-from gui import *
 
 
 class Server:
@@ -275,6 +279,8 @@ class Server:
         @return: none
         """
         self.data.createGUI()
+        self.gui = App(root)
+
 
     def startMainServer(self, cameraIndex):
         """
@@ -383,8 +389,5 @@ if __name__ == "__main__":
     # We can also optionally take a camera index from the command line.
     parser.add_argument('-i', '--cameraindex', help='Which camera input to connect to', type=int, default=0)
     args = parser.parse_args()
-
-    root = Tk()  # creates an instance --> what we call the root window
-    App(root)
     # Starts the program.
     Server(autostart=args.autostart, cameraindex=args.cameraindex)
