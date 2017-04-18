@@ -516,7 +516,7 @@ class Data:
         self.facesEnabled = (cv2.getTrackbarPos(self.facesTrackbar, self.gWindow) == 1)
         # self.facesEnabled = gui.enable
         self.motionEnabled = (cv2.getTrackbarPos(self.motionEnableTrackbar, self.gWindow) == 1)
-        self.flipHorizontal = (cv2.getTrackbarPos(self.flipTrackbar, self.gWindow) == 1)
+        # self.flipHorizontal = (cv2.getTrackbarPos(self.flipTrackbar, self.gWindow) == 1)
 
         # motionThreshold, blurValue, noiseReductionValue, and dilationValue should all
         # equal the same thing as the trackbar position. blurValue is increased by 1 because
@@ -611,4 +611,3 @@ class Data:
     def clickFlip(self):
         print "clicked flip in data"
         self.flipHorizontal = not (self.flipHorizontal)
-        # self.video = cv2.flip(self.video, 1)
