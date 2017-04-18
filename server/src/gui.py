@@ -154,9 +154,6 @@ class Slider():
             self.increases[r].grid(row=r + 3, column=5, columnspan=3, sticky=N + S + E, ipady=13)
             initial -= 1
 
-        #do a test button
-        self.testButton = Button(frame, text="test", command=self.callBack)
-        self.testButton.grid(row = 7, column =0)
 
 
         # self.root.bind('<Left>', self.keyDecrease)
@@ -165,14 +162,11 @@ class Slider():
     # def keyIncrease(self, event):
     #     self.increase_this(0)
 
-    def callBack(self):
-        print "in test"
 
     # def keyDecrease(self, event):
     #     self.decrease_this(0)
 
     def increase_this(self, i):
-        print 'in increase this'
         self.inputs[i] = self.scales[i].get()
         input  = self.inputs[i]
         if (input + 1 <= self.to_value[i]):
