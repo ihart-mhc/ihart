@@ -58,7 +58,7 @@ class MainPanel():
     def frame_dimensions(self):
         self.frame_width = int(self.default_width * self.ratio)
         self.frame_height = int(self.default_height * self.ratio)
-        self.root.geometry("%dx%d" % (self.frame_width, self.frame_height))
+        self.root.geometry("%dx%d+%d+%d" % ((self.frame_width, self.frame_height) + (200,200)))
 
     # def larger_font(self):
     #     self.ratio = self.ratio * 1.1
