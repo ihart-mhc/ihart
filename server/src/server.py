@@ -320,6 +320,7 @@ class Server:
         self.data.createGUI()
         self.gui = App(root, self.reduce_call_back, self.click_flip_button)
 
+
     def startMainServer(self, cameraIndex):
         """
         Start the main program (sensing motion and sending it to clients).
