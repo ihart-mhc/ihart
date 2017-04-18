@@ -514,7 +514,7 @@ class Data:
         # facesEnabled, motionEnabled, and flipHorizontal should all be True if their
         # trackbars are set to 1, and False otherwise.
         self.facesEnabled = (cv2.getTrackbarPos(self.facesTrackbar, self.gWindow) == 1)
-        self.facesEnabled = gui.enable
+        # self.facesEnabled = gui.enable
         self.motionEnabled = (cv2.getTrackbarPos(self.motionEnableTrackbar, self.gWindow) == 1)
         self.flipHorizontal = (cv2.getTrackbarPos(self.flipTrackbar, self.gWindow) == 1)
 
@@ -607,3 +607,8 @@ class Data:
         self.videoCapture.set(3, self.width)
         self.videoCapture.set(4, self.height)
         self.updateVideoAndGUI()
+
+    def clickFlip(self):
+        print "clicked flip in data"
+        self.flipHorizontal = not (self.flipHorizontal)
+        # self.video = cv2.flip(self.video, 1)

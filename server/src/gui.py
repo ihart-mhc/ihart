@@ -3,19 +3,21 @@ from Tkinter import *
 from tkFont import Font
 
 class App():
-    def __init__(self, root, reduce): #, motionCallback, blurCallback, etc etc):
+    def __init__(self, root, reduce, flip): #, motionCallback, blurCallback, etc etc):
         self.root= root
         self.reduce = reduce
-        self.createGUI(self.root, self.reduce)
+        self.flip = flip
+        self.createGUI(self.root, self.reduce, self.flip)
         # LOOP_ACTIVE = True
         # while LOOP_ACTIVE:
         #     self.root.update()
 
-    def createGUI(self, root, reduce):
+    def createGUI(self, root, reduce, flip):
         self.root = root  # creates an instance --> what we call the root window
         self.reduce = reduce
+        self.flip = flip
         self.main_panel = MainPanel(self.root)
-        self.upper_bar = UpperBar(self.root, self.main_panel)
+        self.upper_bar = UpperBar(self.root, self.main_panel, self.flip)
         self.slider = Slider(self.root, self.main_panel, self.reduce)
         self.menu = MenuBar(self.root, self.main_panel)
 
@@ -78,9 +80,10 @@ class MainPanel():
 
 
 class UpperBar():
-    def __init__(self, root, main_panel):
+    def __init__(self, root, main_panel, flip):
         self.root = root
         self.board = main_panel
+        self.flip_call_back = flip
         # logo = PhotoImage(file="logo.gif")
         # logo = logo.subsample(10, 10)
         # logoLabel = Label(root, image=logo)
@@ -92,8 +95,11 @@ class UpperBar():
         flip_frame.pack(side="top", fill="x", expand=False)
         # flip_frame.config(width=self.board.default_width, height=2)
         flip_frame.grid(row=0, columnspan=10, sticky=W + E, pady=5)
-        flipButton = Button(flip_frame, text="Flip Horizontal")
+        flipButton = Button(flip_frame, text="Flip Horizontal", command = self.flip)
         flipButton.pack()
+
+    def flip(self):
+        self.flip_call_back()
 
 
 
