@@ -26,11 +26,12 @@ simply change the position of the trackbar.
 """
 
 # External module dependencies
-
 import argparse # to parse command-line arguments
-# need to import gui and Tk before numpy to avoid an error
-from gui import App, Tk
-root= Tk()
+# Tkinter has to initialize before numpy/cv2/anything else, otherwise we get an NSInvalidArgumentException.
+# Hence we import Tkinter first and let it initialize before we actually create the GUI.
+# See  http://stackoverflow.com/questions/35803338/python-crashes-after-tkinter-and-matplotlib-pyplot-are-imported
+from Tkinter import Tk
+ROOT = Tk()
 
 import cv2      # openCV
 import numpy    # needed for openCV
@@ -41,6 +42,7 @@ from blob import Blob
 from data import Data
 from socket_handler import SocketHandler
 from utility import *
+from gui import App
 
 
 class Server:
@@ -279,8 +281,7 @@ class Server:
         @return: none
         """
         self.data.createGUI()
-        self.gui = App(root)
-
+        self.gui = App(ROOT, self.reduce_call_back)
 
     def startMainServer(self, cameraIndex):
         """
@@ -380,6 +381,9 @@ class Server:
             # Once any new clients have been accepted, send all of the clients the message string.
             self.server_socket.checkIncomingConnections()
             self.server_socket.sendInformation(message)
+
+    def reduce_call_back(self):
+        print "pressed reduce"
 
 
 if __name__ == "__main__":

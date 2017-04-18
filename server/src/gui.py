@@ -3,11 +3,12 @@ from Tkinter import *
 from tkFont import Font
 
 class App():
-    def __init__(self, root): #, motionCallback, blurCallback, etc etc):
+    def __init__(self, root, reduce): #, motionCallback, blurCallback, etc etc):
         self.root = root  # creates an instance --> what we call the root window
+        self.reduce = reduce
         self.main_panel = MainPanel(self.root)
         self.upper_bar = UpperBar(self.root, self.main_panel)
-        self.slider = Slider(self.root, self.main_panel)
+        self.slider = Slider(self.root, self.main_panel, self.reduce)
         self.menu = MenuBar(self.root, self.main_panel)
 
     # in increase or decrease:
@@ -87,10 +88,11 @@ class UpperBar():
 
 
 class Slider():
-    def __init__(self, root, main_panel):
+    def __init__(self, root, main_panel, reduce):
 
         self.root = root
         self.board = main_panel
+        self.reduce_call_back = reduce
 
         FaceVar = IntVar()
         FaceVar.set(1)
@@ -142,21 +144,31 @@ class Slider():
             self.increases[r].grid(row=r + 3, column=5, columnspan=3, sticky=N + S + E, ipady=13)
             initial -= 1
 
-        self.root.bind('<Left>', self.keyDecrease)
-        self.root.bind('<Right>', self.keyIncrease)
+        # do a test button
+        # self.testButton = Button(frame, text="test", command=self.callBack)
+        # self.testButton.grid(row = 7, column =0)
 
-    def keyIncrease(self, event):
-        self.increase_this(0)
 
-    def keyDecrease(self, event):
-        self.decrease_this(0)
+        # self.root.bind('<Left>', self.keyDecrease)
+        # self.root.bind('<Right>', self.keyIncrease)
+
+    # def keyIncrease(self, event):
+    #     self.increase_this(0)
+
+    def callBack(self):
+        print "in test"
+
+    # def keyDecrease(self, event):
+    #     self.decrease_this(0)
 
     def increase_this(self, i):
+        print 'in increase this'
         self.inputs[i] = self.scales[i].get()
         input  = self.inputs[i]
         if (input + 1 <= self.to_value[i]):
             self.inputs[i] = input + 1
         self.scales[i].set(self.inputs[i])
+        self.reduce_call_back()
         # self.getValues()
 
     def decrease_this(self, r):
