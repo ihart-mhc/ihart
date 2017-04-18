@@ -85,7 +85,6 @@ class Server:
         # self.root.geometry("%dx%d" % (self.frame_width, self.frame_height))
 
         self.startButton = Button(root, text="Start", command=self.start)
-        root.update()
         self.quitButton = Button(root, text="Quit")
         self.helpButton = Button(root, text = "Help")
         self.cameraLabel = Label(root, text= "Camera Index")
@@ -93,13 +92,19 @@ class Server:
         self.cameraOne = Button(root, text = "1")
         self.cameraTwo = Button (root, text = "2")
 
+        self.v = StringVar()
+        self.cameraInput = Entry(root, textvariable=self.v)
+        self.cameraInput.grid(row = 4, column = 1)
+
+        self.v.set("0")
+
 
         self.startButton.grid(row=0, column=0)
         self.quitButton.grid(row=2, column=0)
         self.helpButton.grid(row = 3, column=0)
         self.cameraLabel.grid(row = 4, column = 0)
-        self.cameraZero.grid(row = 4, column = 1)
-        self.cameraOne.grid(row = 4, column = 2)
+        # self.cameraZero.grid(row = 4, column = 1)
+        # self.cameraOne.grid(row = 4, column = 2)
         # self.cameraTwo.grid(row = 4, column =3)
 
         # Set the initial camera index.
@@ -137,6 +142,7 @@ class Server:
 
     def start(self):
         self.LOOP_ACTIVE = False
+        s = self.v.get()
         self.startMainServer(0)
 
     def updateGUI(self):
