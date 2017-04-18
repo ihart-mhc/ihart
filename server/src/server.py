@@ -65,6 +65,7 @@ class Server:
     hWindow = "help window"
     helpImage = "startupHelp.png"
     server_socket = None
+    LOOP_ACTIVE = True
 
 
     def __init__(self, autostart=False, cameraindex=0):
@@ -83,7 +84,7 @@ class Server:
         # self.frame_height = int(self.default_height * self.ratio)
         # self.root.geometry("%dx%d" % (self.frame_width, self.frame_height))
 
-        self.startButton = Button(root, text="Start", command=lambda r=0: self.startMainServer(r))
+        self.startButton = Button(root, text="Start", command=self.start)
         root.update()
         self.quitButton = Button(root, text="Quit")
         self.helpButton = Button(root, text = "Help")
@@ -130,7 +131,14 @@ class Server:
         # This prevents the window from closing immediately; without it, we reach the end of our
         # code because the rest (including the infinite loop which keeps everything updating) is
         # called once the user drags the trackbar to start.
-        cv2.waitKey(1000000)
+        # cv2.waitKey(1000000)
+
+        while self.LOOP_ACTIVE:
+            root.update();
+
+    def start(self):
+        self.LOOP_ACTIVE = False
+        self.startMainServer(0)
 
     def updateGUI(self):
         """
