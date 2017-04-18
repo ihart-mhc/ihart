@@ -167,13 +167,14 @@ class Slider():
     #     self.decrease_this(0)
 
     def increase_this(self, i):
+        # print "click button"
         self.inputs[i] = self.scales[i].get()
         input  = self.inputs[i]
         if (input + 1 <= self.to_value[i]):
             self.inputs[i] = input + 1
         self.scales[i].set(self.inputs[i])
         self.reduce_call_back()
-        # self.root.update()
+        self.root.update()
 
         # self.getValues()
 
@@ -185,19 +186,10 @@ class Slider():
         self.scales[r].set(self.inputs[r])
         self.root.update()
 
-        #self.getValues()
-        #self.data.updateTrackbars()
-
     def getValues(self):
         for i in range(5):
             print self.label_text[i]
             print self.scales[i].get()
-
-    def update(self, i):
-        input = i;
-        #if input == 1:
-
-
 
 class MenuBar():
     def __init__(self, root, main_panel):

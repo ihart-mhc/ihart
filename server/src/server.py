@@ -88,27 +88,22 @@ class Server:
         self.quitButton = Button(root, text="Quit")
         self.helpButton = Button(root, text = "Help")
         self.cameraLabel = Label(root, text= "Camera Index")
-        self.cameraZero = Button(root, text="0")
-        self.cameraOne = Button(root, text = "1")
-        self.cameraTwo = Button (root, text = "2")
+
 
         self.v = StringVar()
-        self.cameraInput = Entry(root, textvariable=self.v)
+        self.cameraInput = Entry(root, width = 3, textvariable=self.v)
         self.cameraInput.grid(row = 4, column = 1)
-
         self.v.set("0")
-
+        self.cameraIndex = int(self.v.get())
 
         self.startButton.grid(row=0, column=0)
         self.quitButton.grid(row=2, column=0)
         self.helpButton.grid(row = 3, column=0)
         self.cameraLabel.grid(row = 4, column = 0)
-        # self.cameraZero.grid(row = 4, column = 1)
-        # self.cameraOne.grid(row = 4, column = 2)
-        # self.cameraTwo.grid(row = 4, column =3)
+
 
         # Set the initial camera index.
-        self.cameraIndex = cameraindex
+        # self.cameraIndex = cameraindex
 
         # If autostart is True, skip directly to creation of the main GUI.
         if autostart:
@@ -117,8 +112,8 @@ class Server:
 
 
         # Creates the window and gives it a size (otherwise, its width and height is 0).
-        cv2.namedWindow(self.sWindow, flags=cv2.WINDOW_NORMAL)
-        cv2.resizeWindow(self.sWindow, 200, 200)
+        # cv2.namedWindow(self.sWindow, flags=cv2.WINDOW_NORMAL)
+        # cv2.resizeWindow(self.sWindow, 200, 200)
 
         # Adds a trackbar for choosing the camera index, a trackbar for starting the program, and a trackbar
         # for displaying a help image. (With openCV's GUI, there are no buttons so trackbars with only
@@ -127,10 +122,10 @@ class Server:
         #   variable for the trackbar to be stored in, window to appear on, value to start at (not minimum value),
         #   maximum value, and action listener method.
 
-        cv2.createTrackbar(self.cameraTrackbar, self.sWindow, self.cameraIndex, 5, self.decideCameraTrackbars)
-        cv2.createTrackbar(self.cameraChosenTrackbar, self.sWindow, 0, 1, self.decideCameraTrackbars)
-        cv2.createTrackbar(self.helpTrackbar, self.sWindow, 0, 1, self.decideCameraTrackbars)
-        cv2.createTrackbar(self.startQuitTrackbar, self.sWindow, 0, 1, self.decideCameraTrackbars)
+        # cv2.createTrackbar(self.cameraTrackbar, self.sWindow, self.cameraIndex, 5, self.decideCameraTrackbars)
+        # cv2.createTrackbar(self.cameraChosenTrackbar, self.sWindow, 0, 1, self.decideCameraTrackbars)
+        # cv2.createTrackbar(self.helpTrackbar, self.sWindow, 0, 1, self.decideCameraTrackbars)
+        # cv2.createTrackbar(self.startQuitTrackbar, self.sWindow, 0, 1, self.decideCameraTrackbars)
 
         # This prevents the window from closing immediately; without it, we reach the end of our
         # code because the rest (including the infinite loop which keeps everything updating) is
@@ -142,9 +137,7 @@ class Server:
 
     def start(self):
         self.LOOP_ACTIVE = False
-        s = self.v.get()
-        print "hi " + s
-        self.startMainServer(0)
+        self.startMainServer(self.cameraIndex)
 
     def updateGUI(self):
         """
@@ -426,7 +419,7 @@ class Server:
             self.server_socket.sendInformation(message)
 
     def reduce_call_back(self):
-        print "pressed reduce"
+        print "pressed reduce call back"
 
 
 if __name__ == "__main__":
