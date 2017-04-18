@@ -318,7 +318,7 @@ class Server:
         @return: none
         """
         self.data.createGUI()
-        self.gui = App(root, self.reduce_call_back)
+        self.gui = App(root, self.reduce_call_back, self.click_flip_button)
 
     def startMainServer(self, cameraIndex):
         """
@@ -422,6 +422,10 @@ class Server:
 
     def reduce_call_back(self):
         print "pressed reduce call back"
+
+    def click_flip_button(self):
+        print "click flipped in server"
+        self.data.clickFlip()
 
 
 if __name__ == "__main__":
