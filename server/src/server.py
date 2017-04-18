@@ -84,7 +84,7 @@ class Server:
         # self.frame_height = int(self.default_height * self.ratio)
         # self.root.geometry("%dx%d" % (self.frame_width, self.frame_height))
         root.attributes("-topmost", True)
-        root.geometry("150x150+30+30")
+        root.geometry("140x120+120+120")
 
         self.startButton = Button(root, text="Start", command=self.start)
         self.quitButton = Button(root, text="Quit")
@@ -318,7 +318,7 @@ class Server:
         @return: none
         """
         self.data.createGUI()
-        self.gui = App(root, self.reduce_call_back)
+        self.gui = App(root, self.reduce_call_back, self.click_flip_button)
 
     def startMainServer(self, cameraIndex):
         """
@@ -422,6 +422,10 @@ class Server:
 
     def reduce_call_back(self):
         print "pressed reduce call back"
+
+    def click_flip_button(self):
+        print "click flipped in server"
+        self.data.clickFlip()
 
 
 if __name__ == "__main__":
