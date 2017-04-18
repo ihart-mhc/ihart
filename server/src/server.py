@@ -83,7 +83,8 @@ class Server:
         # self.frame_height = int(self.default_height * self.ratio)
         # self.root.geometry("%dx%d" % (self.frame_width, self.frame_height))
 
-        self.startButton = Button(root, text="Start", command = self.decideCameraTrackbars)
+        self.startButton = Button(root, text="Start", command=lambda r=0: self.startMainServer(r))
+        root.update()
         self.quitButton = Button(root, text="Quit")
         self.helpButton = Button(root, text = "Help")
         self.cameraLabel = Label(root, text= "Camera Index")
