@@ -143,6 +143,7 @@ class Server:
     def start(self):
         self.LOOP_ACTIVE = False
         s = self.v.get()
+        print "hi " + s
         self.startMainServer(0)
 
     def updateGUI(self):
