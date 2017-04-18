@@ -115,7 +115,6 @@ class Server:
         cv2.namedWindow(self.sWindow, flags=cv2.WINDOW_NORMAL)
         cv2.resizeWindow(self.sWindow, 200, 200)
 
-
         # Adds a trackbar for choosing the camera index, a trackbar for starting the program, and a trackbar
         # for displaying a help image. (With openCV's GUI, there are no buttons so trackbars with only
         # two options substitute for them).
