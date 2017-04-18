@@ -14,7 +14,7 @@ import sys      # so that we can exit()
 from area_of_interest import AreaOfInterest
 from blob import Blob
 from utility import *
-import gui as gui
+import gui
 
 class Data:
     """
@@ -389,6 +389,7 @@ class Data:
 
         # displays the image, self.video, on the video window, self.vWindow
         cv2.imshow(self.vWindow, self.video)
+        # self.gui.update()
 
     def resetAreas(self):
         """

@@ -4,6 +4,14 @@ from tkFont import Font
 
 class App():
     def __init__(self, root, reduce): #, motionCallback, blurCallback, etc etc):
+        self.root= root
+        self.reduce = reduce
+        self.createGUI(self.root, self.reduce)
+        # LOOP_ACTIVE = True
+        # while LOOP_ACTIVE:
+        #     self.root.update()
+
+    def createGUI(self, root, reduce):
         self.root = root  # creates an instance --> what we call the root window
         self.reduce = reduce
         self.main_panel = MainPanel(self.root)
@@ -11,6 +19,8 @@ class App():
         self.slider = Slider(self.root, self.main_panel, self.reduce)
         self.menu = MenuBar(self.root, self.main_panel)
 
+    def update(self):
+        self.root.update()
     # in increase or decrease:
     # motionCallback(some value)
     # or: blurCallback(another value)
@@ -144,9 +154,9 @@ class Slider():
             self.increases[r].grid(row=r + 3, column=5, columnspan=3, sticky=N + S + E, ipady=13)
             initial -= 1
 
-        # do a test button
-        # self.testButton = Button(frame, text="test", command=self.callBack)
-        # self.testButton.grid(row = 7, column =0)
+        #do a test button
+        self.testButton = Button(frame, text="test", command=self.callBack)
+        self.testButton.grid(row = 7, column =0)
 
 
         # self.root.bind('<Left>', self.keyDecrease)
@@ -169,6 +179,8 @@ class Slider():
             self.inputs[i] = input + 1
         self.scales[i].set(self.inputs[i])
         self.reduce_call_back()
+        # self.root.update()
+
         # self.getValues()
 
     def decrease_this(self, r):
@@ -177,6 +189,8 @@ class Slider():
         if (input - 1 >= 0):
             self.inputs[r] = input - 1
         self.scales[r].set(self.inputs[r])
+        self.root.update()
+
         #self.getValues()
         #self.data.updateTrackbars()
 

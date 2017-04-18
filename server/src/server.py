@@ -30,8 +30,8 @@ import argparse # to parse command-line arguments
 # Tkinter has to initialize before numpy/cv2/anything else, otherwise we get an NSInvalidArgumentException.
 # Hence we import Tkinter first and let it initialize before we actually create the GUI.
 # See  http://stackoverflow.com/questions/35803338/python-crashes-after-tkinter-and-matplotlib-pyplot-are-imported
-from Tkinter import Tk
-ROOT = Tk()
+from Tkinter import *
+root = Tk()
 
 import cv2      # openCV
 import numpy    # needed for openCV
@@ -42,7 +42,7 @@ from blob import Blob
 from data import Data
 from socket_handler import SocketHandler
 from utility import *
-from gui import App
+from gui import App, Button
 
 
 class Server:
@@ -75,6 +75,30 @@ class Server:
         @param cameraindex: initial value of the camera index
         @return: none
         """
+        # self.openingPanel = OpenPanel(root)
+        # self.default_width = 320
+        # self.default_height = 340
+        # self.ratio = 1
+        # self.frame_width = int(self.default_width * self.ratio)
+        # self.frame_height = int(self.default_height * self.ratio)
+        # self.root.geometry("%dx%d" % (self.frame_width, self.frame_height))
+
+        self.startButton = Button(root, text="Start", command = self.decideCameraTrackbars)
+        self.quitButton = Button(root, text="Quit")
+        self.helpButton = Button(root, text = "Help")
+        self.cameraLabel = Label(root, text= "Camera Index")
+        self.cameraZero = Button(root, text="0")
+        self.cameraOne = Button(root, text = "1")
+        self.cameraTwo = Button (root, text = "2")
+
+
+        self.startButton.grid(row=0, column=0)
+        self.quitButton.grid(row=2, column=0)
+        self.helpButton.grid(row = 3, column=0)
+        self.cameraLabel.grid(row = 4, column = 0)
+        self.cameraZero.grid(row = 4, column = 1)
+        self.cameraOne.grid(row = 4, column = 2)
+        # self.cameraTwo.grid(row = 4, column =3)
 
         # Set the initial camera index.
         self.cameraIndex = cameraindex
@@ -84,9 +108,11 @@ class Server:
             self.startMainServer(self.cameraIndex)
             return
 
+
         # Creates the window and gives it a size (otherwise, its width and height is 0).
         cv2.namedWindow(self.sWindow, flags=cv2.WINDOW_NORMAL)
         cv2.resizeWindow(self.sWindow, 200, 200)
+
 
         # Adds a trackbar for choosing the camera index, a trackbar for starting the program, and a trackbar
         # for displaying a help image. (With openCV's GUI, there are no buttons so trackbars with only
@@ -94,6 +120,7 @@ class Server:
         # createTrackbar takes the following arguments:
         #   variable for the trackbar to be stored in, window to appear on, value to start at (not minimum value),
         #   maximum value, and action listener method.
+
         cv2.createTrackbar(self.cameraTrackbar, self.sWindow, self.cameraIndex, 5, self.decideCameraTrackbars)
         cv2.createTrackbar(self.cameraChosenTrackbar, self.sWindow, 0, 1, self.decideCameraTrackbars)
         cv2.createTrackbar(self.helpTrackbar, self.sWindow, 0, 1, self.decideCameraTrackbars)
@@ -281,7 +308,7 @@ class Server:
         @return: none
         """
         self.data.createGUI()
-        self.gui = App(ROOT, self.reduce_call_back)
+        self.gui = App(root, self.reduce_call_back)
 
     def startMainServer(self, cameraIndex):
         """
@@ -304,7 +331,7 @@ class Server:
         # Start the continuous loop that will run the rest of the program.
         self.run()
 
-    def decideCameraTrackbars(self, x):
+    def decideCameraTrackbars(self,x):
         """
         Set the camera index to use, display a help menu when requested, and start
         the rest of the program when prompted.
@@ -370,6 +397,7 @@ class Server:
 
             # Now that drawing is done, update the display.
             self.data.updateGUI()
+            self.gui.update()
 
             # Get the message string, encoding all the relevant interest area and blob data.
             message = self.data.createInformationString()
