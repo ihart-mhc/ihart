@@ -83,6 +83,8 @@ class Server:
         # self.frame_width = int(self.default_width * self.ratio)
         # self.frame_height = int(self.default_height * self.ratio)
         # self.root.geometry("%dx%d" % (self.frame_width, self.frame_height))
+        root.attributes("-topmost", True)
+        root.geometry("150x150+30+30")
 
         self.startButton = Button(root, text="Start", command=self.start)
         self.quitButton = Button(root, text="Quit")
