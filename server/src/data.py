@@ -513,9 +513,9 @@ class Data:
 
         # facesEnabled, motionEnabled, and flipHorizontal should all be True if their
         # trackbars are set to 1, and False otherwise.
-        self.facesEnabled = (cv2.getTrackbarPos(self.facesTrackbar, self.gWindow) == 1)
+        #self.facesEnabled = (cv2.getTrackbarPos(self.facesTrackbar, self.gWindow) == 1)
         # self.facesEnabled = gui.enable
-        self.motionEnabled = (cv2.getTrackbarPos(self.motionEnableTrackbar, self.gWindow) == 1)
+        #self.motionEnabled = (cv2.getTrackbarPos(self.motionEnableTrackbar, self.gWindow) == 1)
         # self.flipHorizontal = (cv2.getTrackbarPos(self.flipTrackbar, self.gWindow) == 1)
 
         # motionThreshold, blurValue, noiseReductionValue, and dilationValue should all
@@ -608,6 +608,21 @@ class Data:
         self.videoCapture.set(4, self.height)
         self.updateVideoAndGUI()
 
-    def clickFlip(self):
+    def click_flip(self):
         print "clicked flip in data"
         self.flipHorizontal = not (self.flipHorizontal)
+
+    def click_enable_face(self):
+        self.facesEnabled = not(self.facesEnabled)
+        print "in data clicked enable face"
+        print self.facesEnabled
+
+    def click_enable_motion(self):
+        self.motionEnabled = not (self.motionEnabled)
+        print "in data clicked enable motion"
+        print self.motionEnabled
+
+
+    # def clickEnableFace(self):
+    #
+    # def clickEnableMotion(selfs):

@@ -318,7 +318,8 @@ class Server:
         @return: none
         """
         self.data.createGUI()
-        self.gui = App(root, self.reduce_call_back, self.click_flip_button)
+        self.gui = App(root, self.reduce_call_back, self.click_flip_button,
+                       self.click_enable_face, self.click_enable_motion)
 
 
     def startMainServer(self, cameraIndex):
@@ -426,7 +427,15 @@ class Server:
 
     def click_flip_button(self):
         print "click flipped in server"
-        self.data.clickFlip()
+        self.data.click_flip()
+
+    def click_enable_face(self):
+        print "click face in server"
+        self.data.click_enable_face()
+
+    def click_enable_motion(self):
+        print "click motion in server"
+        self.data.click_enable_motion()
 
 
 if __name__ == "__main__":

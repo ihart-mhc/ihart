@@ -3,29 +3,19 @@ from Tkinter import *
 from tkFont import Font
 
 class App():
-    def __init__(self, root, reduce, flip): #, motionCallback, blurCallback, etc etc):
+    def __init__(self, root, reduce, flip, face, motion): #, motionCallback, blurCallback, etc etc):
         self.root= root
         self.reduce = reduce
         self.flip = flip
-        self.createGUI(self.root, self.reduce, self.flip)
-        # LOOP_ACTIVE = True
-        # while LOOP_ACTIVE:
-        #     self.root.update()
-
-    def createGUI(self, root, reduce, flip):
-        self.root = root  # creates an instance --> what we call the root window
-        self.reduce = reduce
-        self.flip = flip
+        self.face = face
+        self.motion = motion
         self.main_panel = MainPanel(self.root)
         self.upper_bar = UpperBar(self.root, self.main_panel, self.flip)
-        self.slider = Slider(self.root, self.main_panel, self.reduce)
+        self.slider = Slider(self.root, self.main_panel, self.reduce, self.face, self.motion)
         self.menu = MenuBar(self.root, self.main_panel)
 
     def update(self):
         self.root.update()
-    # in increase or decrease:
-    # motionCallback(some value)
-    # or: blurCallback(another value)
 
 
 class MainPanel():
@@ -102,25 +92,27 @@ class UpperBar():
         self.flip_call_back()
 
 
-
 class Slider():
-    def __init__(self, root, main_panel, reduce):
+    def __init__(self, root, main_panel, reduce, face, motion):
 
         self.root = root
         self.board = main_panel
         self.reduce_call_back = reduce
+        self.face_call_back = face
+        self.motion_call_back = motion
 
-        FaceVar = IntVar()
-        FaceVar.set(1)
-        MotionVar = BooleanVar()
+        self.FaceVar = BooleanVar()
+        self.FaceVar.set(False)
+        self.MotionVar = BooleanVar()
+        self.MotionVar.set(True)
 
         checkbox_frame = Frame(self.root)
         checkbox_frame.grid(row=2, column=0, columnspan=2,
                             sticky=W + E + S)  # WE - stretch it horizontally but leave it centered vertically.
 
-        self.enableface_checkbox = Checkbutton(checkbox_frame, text="Enable Face", variable=FaceVar, onvalue=1, offvalue=0)
-        self.enablemotion_checkbox = Checkbutton(checkbox_frame, text="Enable Motion", variable=MotionVar, onvalue=True,
-                                            offvalue=False)
+        self.enableface_checkbox = Checkbutton(checkbox_frame, text="Enable Face", variable=self.FaceVar, onvalue=True, offvalue=False, command  = self.enable_face)
+        self.enablemotion_checkbox = Checkbutton(checkbox_frame, text="Enable Motion", variable=self.MotionVar, onvalue=True,
+                                            offvalue=False, command = self.enable_motion)
         # self.enablemotion_checkbox.trace()
 
         self.enableface_checkbox.grid(row=0, column=0, sticky=N + S + W, padx=15)
@@ -130,6 +122,13 @@ class Slider():
         bottom_frame.grid(row=3, column=0, columnspan=3, sticky=W + E + S)
 
         self.create_buttons(bottom_frame)
+
+    def enable_face(self):
+        self.face_call_back()
+
+    def enable_motion(self):
+        self.motion_call_back()
+
 
     def create_buttons(self, frame):
 
