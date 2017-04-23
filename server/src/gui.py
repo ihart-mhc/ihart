@@ -3,15 +3,20 @@ from Tkinter import *
 from tkFont import Font
 
 class App():
-    def __init__(self, root, reduce, flip, face, motion): #, motionCallback, blurCallback, etc etc):
+    def __init__(self, root, flip, face, motion, reduce, blur, blob, mthread, merge): #, motionCallback, blurCallback, etc etc):
         self.root= root
-        self.reduce = reduce
         self.flip = flip
         self.face = face
         self.motion = motion
+        self.reduce = reduce
+        self.blur = blur
+        self.blob = blob
+        self.motion_thread = mthread
+        self.merge = merge
         self.main_panel = MainPanel(self.root)
         self.upper_bar = UpperBar(self.root, self.main_panel, self.flip)
-        self.slider = Slider(self.root, self.main_panel, self.reduce, self.face, self.motion)
+        self.slider = Slider(self.root, self.main_panel, self.face, self.motion,
+                             self.reduce, self.blur, self.blob, self.motion_thread, self.merge)
         self.menu = MenuBar(self.root, self.main_panel)
 
     def update(self):
@@ -93,13 +98,18 @@ class UpperBar():
 
 
 class Slider():
-    def __init__(self, root, main_panel, reduce, face, motion):
+    def __init__(self, root, main_panel, face, motion, reduce, blur, blob, mthread, merge):
 
         self.root = root
         self.board = main_panel
-        self.reduce_call_back = reduce
-        self.face_call_back = face
-        self.motion_call_back = motion
+        self.face_cb = face
+        self.motion_cb = motion
+        self.reduce_cb = reduce
+        self.blur_cb = blur
+        self.blob_cb = blob
+        self.mthread_cb = mthread
+        self.merge_cb = merge
+
 
         self.FaceVar = BooleanVar()
         self.FaceVar.set(False)
@@ -124,11 +134,10 @@ class Slider():
         self.create_buttons(bottom_frame)
 
     def enable_face(self):
-        self.face_call_back()
+        self.face_cb()
 
     def enable_motion(self):
-        self.motion_call_back()
-
+        self.motion_cb()
 
     def create_buttons(self, frame):
 
@@ -178,8 +187,16 @@ class Slider():
         if (input + 1 <= self.to_value[i]):
             self.inputs[i] = input + 1
         self.scales[i].set(self.inputs[i])
-        self.reduce_call_back()
-        self.root.update()
+        if i==0:
+            self.reduce_cb(self.inputs[i])
+        if i==1:
+            self.blur_cb(self.inputs[i])
+        if i==2:
+            self.blob_cb(self.inputs[i])
+        if i==3:
+            self.mthread_cb(self.inputs[i])
+        if i==4:
+            self.merge_cb(self.inputs[i])
 
         # self.getValues()
 
@@ -189,7 +206,16 @@ class Slider():
         if (input - 1 >= 0):
             self.inputs[r] = input - 1
         self.scales[r].set(self.inputs[r])
-        self.root.update()
+        if r==0:
+            self.reduce_cb(self.inputs[r])
+        if r==1:
+            self.blur_cb(self.inputs[r])
+        if r==2:
+            self.blob_cb(self.inputs[r])
+        if r==3:
+            self.mthread_cb(self.inputs[r])
+        if r==4:
+            self.merge_cb(self.inputs[r])
 
     def getValues(self):
         for i in range(5):

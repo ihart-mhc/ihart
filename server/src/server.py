@@ -318,8 +318,8 @@ class Server:
         @return: none
         """
         self.data.createGUI()
-        self.gui = App(root, self.reduce_call_back, self.click_flip_button,
-                       self.click_enable_face, self.click_enable_motion)
+        self.gui = App(root, self.flip_cb, self.enable_face_cb, self.enable_motion_cb,
+                       self.reduce_noise_cb, self.blur_value_cb, self.blob_size_cb, self.motion_thread_cb, self.merge_distance_cb)
 
 
     def startMainServer(self, cameraIndex):
@@ -422,20 +422,36 @@ class Server:
             self.server_socket.checkIncomingConnections()
             self.server_socket.sendInformation(message)
 
-    def reduce_call_back(self):
-        print "pressed reduce call back"
-
-    def click_flip_button(self):
-        print "click flipped in server"
+    def flip_cb(self):
         self.data.click_flip()
 
-    def click_enable_face(self):
-        print "click face in server"
+    def enable_face_cb(self):
         self.data.click_enable_face()
 
-    def click_enable_motion(self):
-        print "click motion in server"
+    def enable_motion_cb(self):
         self.data.click_enable_motion()
+
+    def reduce_noise_cb(self, x):
+        self.data.click_reduce_noise(x)
+        #print "server. reduce noise"
+
+    def blur_value_cb(self, x):
+        self.data.click_blur_value(x)
+        #print "server. blur value"
+
+    def blob_size_cb(self, x):
+        self.data.click_blob_size(x)
+        #print "server. blob size"
+
+    def motion_thread_cb(self,x):
+        self.data.click_motion_thread(x)
+        #print "server. motion thread"
+
+    def merge_distance_cb(self, x):
+        self.data.click_merge_distance(x)
+        #print "server. merge distance"
+
+
 
 
 if __name__ == "__main__":

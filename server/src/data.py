@@ -614,15 +614,28 @@ class Data:
 
     def click_enable_face(self):
         self.facesEnabled = not(self.facesEnabled)
-        print "in data clicked enable face"
+        print "data. enable face"
         print self.facesEnabled
 
     def click_enable_motion(self):
         self.motionEnabled = not (self.motionEnabled)
-        print "in data clicked enable motion"
+        print "data. enable motion"
         print self.motionEnabled
 
 
-    # def clickEnableFace(self):
-    #
-    # def clickEnableMotion(selfs):
+
+    def click_reduce_noise(self, reduce_val):
+        print "data. reduce noise"
+
+    def click_blur_value(self, blur_val):
+        print "data. blur value"
+
+    def click_blob_size(self, blob_val):
+        print "data. blob size"
+
+    def click_motion_thread(self, thread_val):
+        print "data.motion thread"
+
+    def click_merge_distance(self, merge_val):
+        print "data. merge distance"
+
