@@ -156,10 +156,9 @@ class Slider():
         initial = 10
         for r in range(num):
             self.labels[r] = Label(frame, text=self.label_text[r])
-            self.inputs[r] = initial
+            self.inputs[r] = 10
             #, command = lambda r=r: self.update(r)
-            self.scales[r] = Scale(frame, from_=0, to=self.to_value[r], variable=self.vars[r], orient=HORIZONTAL)
-            self.scales[r].set(self.inputs[r])
+            self.scales[r] = Scale(frame, from_=0, to_=self.to_value[r], variable=self.vars[r], orient=HORIZONTAL)
             self.increases[r] = Button(frame, text="+", command=lambda r=r: self.increase_this(r))
             self.decreases[r] = Button(frame, text="-", command=lambda r=r: self.decrease_this(r))
             self.labels[r].grid(row=r + 3, column=0, sticky=W + N, ipadx=10, ipady=15)
@@ -180,13 +179,9 @@ class Slider():
     # def keyDecrease(self, event):
     #     self.decrease_this(0)
 
-    def increase_this(self, i):
-        # print "click button"
-        self.inputs[i] = self.scales[i].get()
-        input  = self.inputs[i]
-        if (input + 1 <= self.to_value[i]):
-            self.inputs[i] = input + 1
-        self.scales[i].set(self.inputs[i])
+    def call_back(self, i):
+        print "in call back"
+        print i
         if i==0:
             self.reduce_cb(self.inputs[i])
         if i==1:
@@ -198,6 +193,16 @@ class Slider():
         if i==4:
             self.merge_cb(self.inputs[i])
 
+    def increase_this(self, i):
+        # print "click button"
+        self.inputs[i] = self.scales[i].get()
+        input  = self.inputs[i]
+        if (input + 1 <= self.to_value[i]):
+            self.inputs[i] = input + 1
+        self.scales[i].set(self.inputs[i])
+        self.call_back(i)
+
+
         # self.getValues()
 
     def decrease_this(self, r):
@@ -206,16 +211,7 @@ class Slider():
         if (input - 1 >= 0):
             self.inputs[r] = input - 1
         self.scales[r].set(self.inputs[r])
-        if r==0:
-            self.reduce_cb(self.inputs[r])
-        if r==1:
-            self.blur_cb(self.inputs[r])
-        if r==2:
-            self.blob_cb(self.inputs[r])
-        if r==3:
-            self.mthread_cb(self.inputs[r])
-        if r==4:
-            self.merge_cb(self.inputs[r])
+        self.call_back(r)
 
     def getValues(self):
         for i in range(5):
