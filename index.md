@@ -4,15 +4,9 @@ The iHart: Interactive Hallways for Attraction and Retention in Technology proje
 
 ### How to download and install iHart:
 
-1. You can download all the files necessary for installing and running iHart on you computer above.
-2. To run the iHart software go to **server --> dist**, then go to either **mac** or **windows** depending on your operation system and run the program called **cvServer**.
-3. Next, return to the main iHart folder and go to **client --> apps**. Choose an application to test open its folder and run the .swf file.
+You can download all the files necessary for installing and running iHart on you computer using the above links.
 
-### iHart applications include:
+Setting up an iHart display takes two steps: running the server, then running a client application. Your computer should have a webcam available.
 
-* Butterflies
-* Fireworks
-* Flowers
-* Magic 8 Ball
-* Piano
-* SnowScene
+1. To run the iHart server software go to where you downloaded the project. Navigate to **server --> dist**, then go to either **mac** or **windows** depending on your operating system. Run the program called **cvServer**.
+1. Next, return to the main iHart folder and go to **client --> apps**. Choose an application, and check out how to run applications on the [applications page](/applications).
