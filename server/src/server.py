@@ -169,6 +169,7 @@ class Server:
 
         # Add difference to the running average of frames. (last argument determines
         # how fast images fade from the average.)
+
         cv2.accumulateWeighted(self.data.difference, self.data.average, 0.320)
 
         # Calculates absolute difference of difference from the average.
@@ -320,6 +321,7 @@ class Server:
         self.data.createGUI()
         self.gui = App(root, self.flip_cb, self.enable_face_cb, self.enable_motion_cb,
                        self.reduce_noise_cb, self.blur_value_cb, self.blob_size_cb, self.motion_thread_cb, self.merge_distance_cb)
+        self.gui.__fully_initialized = True
 
 
     def startMainServer(self, cameraIndex):

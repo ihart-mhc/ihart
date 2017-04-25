@@ -91,6 +91,9 @@ class UpperBar():
 # Slider includes enable face and enable motion check boxes,
 # and buttons and slide bars for other functions
 class Slider():
+
+    __fully_initialized = False
+
     def __init__(self, root, main_panel, face, motion, reduce, blur, blob, mthread, merge):
 
         self.root = root
@@ -127,6 +130,8 @@ class Slider():
 
         self.create_buttons(bottom_frame)
 
+        # self.__fully_initialized = True
+
     # When user click on the checkbox, it will call the method in server class, which will then call
     # the actual functioning class in data class to enable or disable face
     def enable_face(self):
@@ -148,7 +153,7 @@ class Slider():
         self.scales = [None for _ in range(num)]
         self.increases = [None for _ in range(num)]
         self.decreases = [None for _ in range(num)]
-        self.vars = [0] *num
+        self.vars = [10.0] *num
 
         for i in range(num):
             self.vars[i] = IntVar()
@@ -158,9 +163,9 @@ class Slider():
             self.inputs[r] = 10
             #, command = lambda r=r: self.update(r)
             # callback should be 0 for reduce noice(the first trackbar), but print out the trackbar value!!!!
-            self.scales[r] = Scale(frame, from_=0, to_=self.to_value[r], variable=self.vars[r], orient=HORIZONTAL,command=lambda r=r: self.call_back(r))
-            self.increases[r] = Button(frame, text="+", command=lambda r=r: self.increase_this(r))
-            self.decreases[r] = Button(frame, text="-", command=lambda r=r: self.decrease_this(r))
+            self.scales[r] = Scale(frame, from_=0, to_=self.to_value[r], variable=self.vars[r], orient=HORIZONTAL, command=(lambda x, i=r: self.scale_call_back(x, i)))
+            self.increases[r] = Button(frame, text="+", command=(lambda i=r: self.increase_this(i)))
+            self.decreases[r] = Button(frame, text="-", command=(lambda i=r: self.decrease_this(i)))
             self.labels[r].grid(row=r + 3, column=0, sticky=W + N, ipadx=10, ipady=15)
             self.decreases[r].grid(row=r + 3, column=1, columnspan=3, sticky=N + S + E, ipady=13)
             self.scales[r].grid(row=r + 3, column=4, sticky=N)
@@ -183,9 +188,36 @@ class Slider():
     # ex. row 0 = reduce noise
     # then based on the row number, get the value of that function and call the corresponding
     # methods in server class (which then call methods in data class to modify cv)
-    def call_back(self, i):
+    def scale_call_back(self, x, i):
+        print "calling callback"
+        print self.__fully_initialized
+        if not self.__fully_initialized:
+            return
+
         print "in call back"
-        print i
+        print x, i
+        print "input is", self.inputs[i]
+        print x
+        x = int(x)
+        # reduce noise
+        if i == 0:
+            self.reduce_cb(x)
+        # blur value
+        if i == 1:
+            self.blur_cb(x)
+        # blob size
+        if i == 2:
+            self.blob_cb(x)
+        # motion thread
+        if i == 3:
+            self.mthread_cb(x)
+        # merge distance
+        if i == 4:
+            self.merge_cb(x)
+
+    def call_back(self, i):
+        print "in increase back"
+
         # reduce noise
         if i==0:
             self.reduce_cb(self.inputs[i])
