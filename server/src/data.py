@@ -521,22 +521,22 @@ class Data:
         # motionThreshold, blurValue, noiseReductionValue, and dilationValue should all
         # equal the same thing as the trackbar position. blurValue is increased by 1 because
         # it should never be 0.
-        self.motionThreshold = cv2.getTrackbarPos(self.motionTrackbar, self.gWindow)
-        self.blurValue = cv2.getTrackbarPos(self.blurTrackbar, self.gWindow) + 1
+        # self.motionThreshold = cv2.getTrackbarPos(self.motionTrackbar, self.gWindow)
+        # self.blurValue = cv2.getTrackbarPos(self.blurTrackbar, self.gWindow) + 1
         self.noiseReductionValue = cv2.getTrackbarPos(self.noiseTrackbar, self.gWindow)
-        self.dilationValue = cv2.getTrackbarPos(self.dilateTrackbar, self.gWindow)
+        # self.dilationValue = cv2.getTrackbarPos(self.dilateTrackbar, self.gWindow)
 
         # Format mergeDistance, which needs to be divided by 10.0, or result will be rounded to an int
         # (or could surround one side with float(), but not the entire statement)
         # mergeDistance will range from 0 to 0.9, inclusive.
-        self.mergeDistance = cv2.getTrackbarPos(self.mergeTrackbar, self.gWindow) / 10.0
+        # self.mergeDistance = cv2.getTrackbarPos(self.mergeTrackbar, self.gWindow) / 10.0
 
         # Create a new Kernel (for increasing or decreasing blobs (after threshold is applied) with openCV)
         # only if the size is more than 0: if it is 0, the program will crash.
-        if self.noiseReductionValue > 0:
-            self.noiseKernel = cv2.getStructuringElement(cv2.MORPH_RECT, (self.noiseReductionValue, self.noiseReductionValue))
-        if self.dilationValue > 0:
-            self.dilateKernel = cv2.getStructuringElement(cv2.MORPH_RECT, (self.dilationValue, self.dilationValue))
+        # if self.noiseReductionValue > 0:
+        #     self.noiseKernel = cv2.getStructuringElement(cv2.MORPH_RECT, (self.noiseReductionValue, self.noiseReductionValue))
+        # if self.dilationValue > 0:
+        #     self.dilateKernel = cv2.getStructuringElement(cv2.MORPH_RECT, (self.dilationValue, self.dilationValue))
 
         # If the help trackbar is on 1, the help window should be displayed.
         if cv2.getTrackbarPos(self.helpTrackbar, self.gWindow) == 1 and not self.helpOpen:
@@ -630,21 +630,29 @@ class Data:
     def click_reduce_noise(self, reduce_val):
         # print reduce_val
         # self.noiseReductionValue = cv2.getTrackbarPos(self.noiseTrackbar, self.gWindow)
-
-        # self.noiseReductionValue will be updated!
+        self.noiseReductionValue = reduce_val
         if self.noiseReductionValue > 0:
             self.noiseKernel = cv2.getStructuringElement(cv2.MORPH_RECT, (self.noiseReductionValue, self.noiseReductionValue))
         print "data. reduce noise"
 
     def click_blur_value(self, blur_val):
+        # self.blurValue = cv2.getTrackbarPos(self.blurTrackbar, self.gWindow) + 1
+        self.blurValue = blur_val
         print "data. blur value"
 
     def click_blob_size(self, blob_val):
+        self.dilationValue = blob_val
+        if self.dilationValue > 0:
+            self.dilateKernel = cv2.getStructuringElement(cv2.MORPH_RECT, (self.dilationValue, self.dilationValue))
         print "data. blob size"
 
     def click_motion_thread(self, thread_val):
+        self.motionThreshold = thread_val
         print "data.motion thread"
 
     def click_merge_distance(self, merge_val):
+        # self.mergeDistance = cv2.getTrackbarPos(self.mergeTrackbar, self.gWindow) / 10.0
+        self.mergeDistance = merge_val / 10.0
         print "data. merge distance"
+
 
