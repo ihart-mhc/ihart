@@ -2,6 +2,12 @@ import tkMessageBox
 from Tkinter import *
 from tkFont import Font
 
+# App is the main class for gui. It takes in the tkinter root in order for the gui panel to show
+# and several method parameters to connect the gui with server class and data class
+# The method parameters are passed in from server class, each match with another
+# call back in data class
+# The method parameters include Flip Horizontaly, Enable Face, Enable Motiion,
+# Reduce Noise, Blur Value, Blob Size, Motion Thread, and Merge Distance
 class App():
     def __init__(self, root, flip, face, motion, reduce, blur, blob, mthread, merge): #, motionCallback, blurCallback, etc etc):
         self.root= root
@@ -22,7 +28,7 @@ class App():
     def update(self):
         self.root.update()
 
-
+# MainPanel creates the gui frame
 class MainPanel():
     def __init__(self, root):
         self.root = root
@@ -57,7 +63,7 @@ class MainPanel():
         self.frame_height = int(self.default_height * self.ratio)
         self.root.geometry("%dx%d+%d+%d" % ((self.frame_width, self.frame_height) + (200,200)))
 
-
+# UpperBar includes the Flip Horizontable button
 class UpperBar():
     def __init__(self, root, main_panel, flip):
         self.root = root
@@ -77,10 +83,13 @@ class UpperBar():
         flipButton = Button(flip_frame, text="Flip Horizontal", command = self.flip)
         flipButton.pack()
 
+    # When flip horizontal button is clicked, it will call the call back method in server
+    # which will then call the actual method in data class
     def flip(self):
         self.flip_call_back()
 
-
+# Slider includes enable face and enable motion check boxes,
+# and buttons and slide bars for other functions
 class Slider():
     def __init__(self, root, main_panel, face, motion, reduce, blur, blob, mthread, merge):
 
@@ -94,7 +103,8 @@ class Slider():
         self.mthread_cb = mthread
         self.merge_cb = merge
 
-
+        # each checkbox matches to a BooleanVar
+        # the initial value for enable face is false, and for enable motion is true
         self.FaceVar = BooleanVar()
         self.FaceVar.set(False)
         self.MotionVar = BooleanVar()
@@ -117,12 +127,17 @@ class Slider():
 
         self.create_buttons(bottom_frame)
 
+    # When user click on the checkbox, it will call the method in server class, which will then call
+    # the actual functioning class in data class to enable or disable face
     def enable_face(self):
         self.face_cb()
 
     def enable_motion(self):
         self.motion_cb()
 
+    # each of them can be adjust by both the slide bar and buttons
+    #  - ======== +
+    # create 5 rows of that for each of them
     def create_buttons(self, frame):
 
         self.label_text = ["Reduce Noise", "Blur Value", "Blob Size", "Motion Thread", "Merge Distance"]
@@ -164,20 +179,33 @@ class Slider():
     # def keyDecrease(self, event):
     #     self.decrease_this(0)
 
+    # call_back takes in a number indicating which row that the user makes a change to
+    # ex. row 0 = reduce noise
+    # then based on the row number, get the value of that function and call the corresponding
+    # methods in server class (which then call methods in data class to modify cv)
     def call_back(self, i):
         print "in call back"
         print i
+        # reduce noise
         if i==0:
             self.reduce_cb(self.inputs[i])
+        # blur value
         if i==1:
             self.blur_cb(self.inputs[i])
+        # blob size
         if i==2:
             self.blob_cb(self.inputs[i])
+        # motion thread
         if i==3:
             self.mthread_cb(self.inputs[i])
+        # merge distance
         if i==4:
             self.merge_cb(self.inputs[i])
 
+    # Increase the value when increase buttons are clicked
+    # It takes in a parameter indicating which row/ function that user is modifying
+    # Increase the value by 1 if it is within the range, and do nothing if it exceeds the range
+    # then call call_back method
     def increase_this(self, i):
         # print "click button"
         self.inputs[i] = self.scales[i].get()
@@ -187,9 +215,10 @@ class Slider():
         self.scales[i].set(self.inputs[i])
         self.call_back(i)
 
-
-        # self.getValues()
-
+    # Decrease the value when decrease buttons are clicked
+    # It takes in a parameter indicating which row/ function that user is modifying
+    # Decrease the value by 1 if it is within the range, and do nothing if it exceeds the range
+    # then call call_back method
     def decrease_this(self, r):
         self.inputs[r] = self.scales[r].get()
         input = self.inputs[r]
