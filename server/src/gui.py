@@ -57,22 +57,6 @@ class MainPanel():
         self.frame_height = int(self.default_height * self.ratio)
         self.root.geometry("%dx%d+%d+%d" % ((self.frame_width, self.frame_height) + (200,200)))
 
-    # def larger_font(self):
-    #     self.ratio = self.ratio * 1.1
-    #     if self.ratio <= 1.50:
-    #         size = self.custom_font['size']
-    #         self.custom_font.configure(size=size + 2)
-    #         self.frame_dimensions()
-    #         self.root.update_idletasks()
-    #
-    # def smaller_font(self):
-    #     self.ratio = self.ratio * 0.9
-    #     if self.ratio >= 0.65:
-    #         size = self.custom_font['size']
-    #         self.custom_font.configure(size=size - 2)
-    #         self.frame_dimensions()
-    #         self.root.update_idletasks()
-
 
 class UpperBar():
     def __init__(self, root, main_panel, flip):
@@ -158,7 +142,8 @@ class Slider():
             self.labels[r] = Label(frame, text=self.label_text[r])
             self.inputs[r] = 10
             #, command = lambda r=r: self.update(r)
-            self.scales[r] = Scale(frame, from_=0, to_=self.to_value[r], variable=self.vars[r], orient=HORIZONTAL)
+            # callback should be 0 for reduce noice(the first trackbar), but print out the trackbar value!!!!
+            self.scales[r] = Scale(frame, from_=0, to_=self.to_value[r], variable=self.vars[r], orient=HORIZONTAL,command=lambda r=r: self.call_back(r))
             self.increases[r] = Button(frame, text="+", command=lambda r=r: self.increase_this(r))
             self.decreases[r] = Button(frame, text="-", command=lambda r=r: self.decrease_this(r))
             self.labels[r].grid(row=r + 3, column=0, sticky=W + N, ipadx=10, ipady=15)

@@ -608,6 +608,8 @@ class Data:
         self.videoCapture.set(4, self.height)
         self.updateVideoAndGUI()
 
+
+#done by JESSICA!
     def click_flip(self):
         print "clicked flip in data"
         self.flipHorizontal = not (self.flipHorizontal)
@@ -623,8 +625,15 @@ class Data:
         print self.motionEnabled
 
 
-
+#
+#   divide trackbar methods into five separe ones (callbacks inside)
     def click_reduce_noise(self, reduce_val):
+        # print reduce_val
+        # self.noiseReductionValue = cv2.getTrackbarPos(self.noiseTrackbar, self.gWindow)
+
+        # self.noiseReductionValue will be updated!
+        if self.noiseReductionValue > 0:
+            self.noiseKernel = cv2.getStructuringElement(cv2.MORPH_RECT, (self.noiseReductionValue, self.noiseReductionValue))
         print "data. reduce noise"
 
     def click_blur_value(self, blur_val):
