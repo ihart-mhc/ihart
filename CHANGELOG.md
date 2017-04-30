@@ -6,8 +6,12 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 ### Fixed
 - The program quits when the "X" button in the window is clicked
 
+### Added
+- There is now a Python client.
+
 ### Changed
-- Messages are sent as JSON instead of a custom format. This is *not* backwards compatible with the Flash client, and there are no plans to update it. The Java client and the Python client use JSON. 
+- Messages are sent as JSON instead of a custom format. This is *not* backwards compatible with the Flash client, and there are no plans to update it. The Java client and the Python client use JSON.
+- The Java client library API for accessing event information has been updated.
 
 ## [2.3.1]
 ### Fixed
