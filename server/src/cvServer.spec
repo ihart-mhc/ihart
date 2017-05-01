@@ -19,9 +19,9 @@ a = Analysis(['server.py'],
              win_private_assemblies=False,
              cipher=block_cipher)
 
-a.datas.append(added_files[0])
-a.datas.append(added_files[1])
-a.datas.append(added_files[2])
+for entry in added_files:
+  a.datas.append(entry)
+
 
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
