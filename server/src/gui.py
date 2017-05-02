@@ -3,7 +3,7 @@ from Tkinter import *
 from tkFont import Font
 
 # App is the main class for gui. It takes in the tkinter root in order for the gui panel to show
-# and several method parameters to connect the gui with server class and data class
+# and several method parameters to connect the gui with server class and then data class
 # The method parameters are passed in from server class, each match with another
 # call back in data class
 # The method parameters include Flip Horizontaly, Enable Face, Enable Motiion,
@@ -92,6 +92,8 @@ class UpperBar():
 # and buttons and slide bars for other functions
 class Slider():
 
+
+
     __fully_initialized = False
 
     def __init__(self, root, main_panel, face, motion, reduce, blur, blob, mthread, merge):
@@ -130,7 +132,7 @@ class Slider():
 
         self.create_buttons(bottom_frame)
 
-        # self.__fully_initialized = True
+
 
     # When user click on the checkbox, it will call the method in server class, which will then call
     # the actual functioning class in data class to enable or disable face
@@ -172,6 +174,11 @@ class Slider():
             self.increases[r].grid(row=r + 3, column=5, columnspan=3, sticky=N + S + E, ipady=13)
             initial -= 1
 
+        self.extracScale = Scale(frame, from_=0, to_=100, orient=HORIZONTAL, command = self.extraCallBack)
+        self.extracScale.grid(row = 10, column = 0)
+        # print "finish init"
+        # self.__fully_initialized = True
+
 
 
         # self.root.bind('<Left>', self.keyDecrease)
@@ -188,16 +195,19 @@ class Slider():
     # ex. row 0 = reduce noise
     # then based on the row number, get the value of that function and call the corresponding
     # methods in server class (which then call methods in data class to modify cv)
-    def scale_call_back(self, x, i):
-        print "calling callback"
-        print self.__fully_initialized
-        if not self.__fully_initialized:
-            return
 
-        print "in call back"
-        print x, i
-        print "input is", self.inputs[i]
-        print x
+    def extraCallBack(self,x):
+         print "in extra call back"
+
+    def scale_call_back(self, x, i):
+        # print "calling callback"
+        # print self.__fully_initialized
+        #
+        #
+        # print "in call back for scale"
+        # print x, i
+        # print "input is", self.inputs[i]
+        # print x
         x = int(x)
         # reduce noise
         if i == 0:
