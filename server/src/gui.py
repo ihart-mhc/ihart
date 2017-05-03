@@ -147,8 +147,10 @@ class Slider():
     # create 5 rows of that for each of them
     def create_buttons(self, frame):
 
-        self.label_text = ["Reduce Noise", "Blur Value", "Blob Size", "Motion Thread", "Merge Distance"]
+        self.label_text = ["Reduce Noise", "Blur Value", "Blob Size", "Motion Threshold", "Merge Distance"]
         self.to_value = [20, 20, 20, 50, 10]
+        # The initial values, as set in data.py
+        self.initial_value = [ 0, 3, 0, 20, 0.3 ]
         num = self.label_text.__len__()
         self.inputs = [None for _ in range(num)]
         self.labels = [None for _ in range(num)]
@@ -165,7 +167,8 @@ class Slider():
             self.inputs[r] = 10
             #, command = lambda r=r: self.update(r)
             # callback should be 0 for reduce noice(the first trackbar), but print out the trackbar value!!!!
-            self.scales[r] = Scale(frame, from_=0, to_=self.to_value[r], variable=self.vars[r], orient=HORIZONTAL, command=(lambda x, i=r: self.scale_call_back(x, i)))
+            # We set the from_ value to be the initial value; further work can be done to find an actual valid minimum, but this works for now.
+            self.scales[r] = Scale(frame, from_=self.initial_value[r], to_=self.to_value[r], variable=self.vars[r], orient=HORIZONTAL, command=(lambda x, i=r: self.scale_call_back(x, i)))
             self.increases[r] = Button(frame, text="+", command=(lambda i=r: self.increase_this(i)))
             self.decreases[r] = Button(frame, text="-", command=(lambda i=r: self.decrease_this(i)))
             self.labels[r].grid(row=r + 3, column=0, sticky=W + N, ipadx=10, ipady=15)
@@ -174,8 +177,6 @@ class Slider():
             self.increases[r].grid(row=r + 3, column=5, columnspan=3, sticky=N + S + E, ipady=13)
             initial -= 1
 
-        self.extracScale = Scale(frame, from_=0, to_=100, orient=HORIZONTAL, command = self.extraCallBack)
-        self.extracScale.grid(row = 10, column = 0)
         # print "finish init"
         # self.__fully_initialized = True
 
@@ -195,9 +196,6 @@ class Slider():
     # ex. row 0 = reduce noise
     # then based on the row number, get the value of that function and call the corresponding
     # methods in server class (which then call methods in data class to modify cv)
-
-    def extraCallBack(self,x):
-         print "in extra call back"
 
     def scale_call_back(self, x, i):
         # print "calling callback"

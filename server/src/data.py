@@ -611,17 +611,17 @@ class Data:
 
 #done by JESSICA!
     def click_flip(self):
-        print "clicked flip in data"
+        # print "clicked flip in data"
         self.flipHorizontal = not (self.flipHorizontal)
 
     def click_enable_face(self):
         self.facesEnabled = not(self.facesEnabled)
-        print "data. enable face"
+        # print "data. enable face"
         print self.facesEnabled
 
     def click_enable_motion(self):
         self.motionEnabled = not (self.motionEnabled)
-        print "data. enable motion"
+        # print "data. enable motion"
         print self.motionEnabled
 
 
@@ -633,26 +633,26 @@ class Data:
         self.noiseReductionValue = reduce_val
         if self.noiseReductionValue > 0:
             self.noiseKernel = cv2.getStructuringElement(cv2.MORPH_RECT, (self.noiseReductionValue, self.noiseReductionValue))
-        print "data. reduce noise"
+        # print "data. reduce noise"
 
     def click_blur_value(self, blur_val):
         # self.blurValue = cv2.getTrackbarPos(self.blurTrackbar, self.gWindow) + 1
         self.blurValue = blur_val
-        print "data. blur value"
+        # print "data. blur value"
 
     def click_blob_size(self, blob_val):
         self.dilationValue = blob_val
         if self.dilationValue > 0:
             self.dilateKernel = cv2.getStructuringElement(cv2.MORPH_RECT, (self.dilationValue, self.dilationValue))
-        print "data. blob size"
+        # print "data. blob size"
 
     def click_motion_thread(self, thread_val):
         self.motionThreshold = thread_val
-        print "data.motion thread"
+        # print "data.motion thread"
 
     def click_merge_distance(self, merge_val):
         # self.mergeDistance = cv2.getTrackbarPos(self.mergeTrackbar, self.gWindow) / 10.0
         self.mergeDistance = merge_val / 10.0
-        print "data. merge distance"
+        # print "data. merge distance"
 
 
